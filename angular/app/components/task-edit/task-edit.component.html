@@ -1,0 +1,95 @@
+<section class="content-header">
+    <h1>Case <small>Add a new case</small></h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="app.landing"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a ui-sref="app.caselist">Case Lists</a></li>
+        <li class="active">Add Case</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-sm-12 col-md-7">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Add Case</h3>
+                </div>
+                <form class="form-horizontal" name="caseForm" ng-submit="vm.save(caseForm.$valid, caseForm)" novalidate>
+                    <div class="box-body">
+                        <div ng-if="vm.alerts" class="alert alert-{{alert.type}}" ng-repeat="alert in vm.alerts">
+                            <h4>{{alert.title}}</h4>
+                            <p>{{alert.msg}}</p>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error': caseForm.director.$invalid && ( vm.formSubmitted || caseForm.director.$touched) }">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Director</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="vm.task.data.director" name="director" placeholder="Director" required>
+                                <p ng-show="caseForm.director.$error.required && ( vm.formSubmitted || caseForm.director.$touched)" class="help-block">Director is required</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error': caseForm.manager.$invalid && ( vm.formSubmitted || caseForm.manager.$touched) }">
+                            <label for="inputEmail3" class="col-sm-2 control-label">manager</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="vm.task.data.manager" name="manager" placeholder="manager" required>
+                                <p ng-show="caseForm.manager.$error.required && ( vm.formSubmitted || caseForm.manager.$touched)" class="help-block">manager is required</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error': caseForm.s_admin.$invalid && ( vm.formSubmitted || caseForm.s_admin.$touched) }">
+                            <label for="inputEmail3" class="col-sm-2 control-label">s_admin</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="vm.task.data.s_admin" name="s_admin" placeholder="s_admin" required>
+                                <p ng-show="caseForm.s_admin.$error.required && ( vm.formSubmitted || caseForm.s_admin.$touched)" class="help-block">s_admin is required</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error': caseForm.admin.$invalid && ( vm.formSubmitted || caseForm.admin.$touched) }">
+                            <label for="inputEmail3" class="col-sm-2 control-label">admin</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="vm.task.data.admin" name="admin" placeholder="admin" required>
+                                <p ng-show="caseForm.admin.$error.required && ( vm.formSubmitted || caseForm.admin.$touched)" class="help-block">admin is required</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error': caseForm.asst_admin.$invalid && ( vm.formSubmitted || caseForm.asst_admin.$touched) }">
+                            <label for="inputEmail3" class="col-sm-2 control-label">asst_admin</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="vm.task.data.asst_admin" name="asst_admin" placeholder="asst_admin" required>
+                                <p ng-show="caseForm.asst_admin.$error.required && ( vm.formSubmitted || caseForm.asst_admin.$touched)" class="help-block">asst_admin is required</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error': caseForm.j_admin.$invalid && ( vm.formSubmitted || caseForm.j_admin.$touched) }">
+                            <label for="inputEmail3" class="col-sm-2 control-label">j_admin</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="vm.task.data.j_admin" name="j_admin" placeholder="j_admin" required>
+                                <p ng-show="caseForm.j_admin.$error.required && ( vm.formSubmitted || caseForm.j_admin.$touched)" class="help-block">j_admin is required</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error': caseForm.explanation.$invalid && ( vm.formSubmitted || caseForm.explanation.$touched) }">
+                            <label for="inputEmail3" class="col-sm-2 control-label">explanation</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="vm.task.data.explanation" name="explanation" placeholder="explanation" required>
+                                <p ng-show="caseForm.explanation.$error.required && ( vm.formSubmitted || caseForm.explanation.$touched)" class="help-block">explanation is required</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error': caseForm.justification.$invalid && ( vm.formSubmitted || caseForm.justification.$touched) }">
+                            <label for="inputEmail3" class="col-sm-2 control-label">justification</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="vm.task.data.justification" name="justification" placeholder="justification" required>
+                                <p ng-show="caseForm.justification.$error.required && ( vm.formSubmitted || caseForm.justification.$touched)" class="help-block">justification is required</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error': caseForm.is_done.$invalid && ( vm.formSubmitted || caseForm.is_done.$touched) }">
+                            <label for="inputEmail3" class="col-sm-2 control-label">is_done</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="vm.task.data.is_done" name="is_done" placeholder="is_done" required>
+                                <p ng-show="caseForm.is_done.$error.required && ( vm.formSubmitted || caseForm.is_done.$touched)" class="help-block">is_done is required</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="box-footer">
+                        <a ui-sref="app.caselist" class="btn btn-default"><i class="fa fa-angle-double-left"></i> Back</a>
+                        <button type="submit" class="btn btn-primary pull-right">Add New</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
