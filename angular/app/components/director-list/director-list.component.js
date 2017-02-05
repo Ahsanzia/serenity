@@ -38,7 +38,7 @@ class DirectorListController {
 
         let actionsHtml = (data) => {
             return `
-                <button class="btn btn-xs btn-success" ng-click="vm.adddirector(${data.id})">
+                <button class="btn btn-xs btn-danger" ng-click="vm.delete(${data.id})">
                     <i class="fa fa-trash-o"></i>
                 </button>`
         }
@@ -67,7 +67,7 @@ class DirectorListController {
             })
         let actionsHtml2 = (data) => {
             return `
-                <button class="btn btn-xs btn-success" ng-click="vm.adddirector(${data.id})">
+                <button class="btn btn-xs btn-danger" ng-click="vm.delete(${data.id})">
                     <i class="fa fa-trash-o"></i>
                 </button>`
         }
@@ -79,14 +79,13 @@ class DirectorListController {
     }
 
 
-    //OTHER
-    adddirector(companyId) {
+   delete (roleId) {
         let API = this.API
         let $state = this.$state
 
         swal({
             title: 'Are you sure?',
-            text: 'You want to add this!',
+            text: 'You will not be able to recover this data!',
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#DD6B55',
@@ -95,11 +94,11 @@ class DirectorListController {
             showLoaderOnConfirm: true,
             html: false
         }, function () {
-            API.one('clients').one('client', roleId).remove()
+            API.one('deleteCompanyclient', roleId).remove()
                 .then(() => {
                     swal({
                         title: 'Deleted!',
-                        text: 'User Role has been deleted.',
+                        text: 'Client has been deleted.',
                         type: 'success',
                         confirmButtonText: 'OK',
                         closeOnConfirm: true
@@ -109,6 +108,7 @@ class DirectorListController {
                 })
         })
     }
+
 
     $onInit() {
     }

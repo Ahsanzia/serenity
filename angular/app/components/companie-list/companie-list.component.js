@@ -21,6 +21,10 @@ class CompanieListController{
                     DTColumnBuilder.newColumn('regno').withTitle('Registration-No'),
                     DTColumnBuilder.newColumn('casetype').withTitle('Case Type'),
                     DTColumnBuilder.newColumn('appdate').withTitle('Appointment Date'),
+                    DTColumnBuilder.newColumn(null).withTitle('Add Task').notSortable()
+                        .renderWith(taskHtml),    
+                    DTColumnBuilder.newColumn(null).withTitle('View/Add Details').notSortable()
+                    .renderWith(detailsHtml),
                     DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
                         .renderWith(actionsHtml)
                 ]
@@ -32,15 +36,16 @@ class CompanieListController{
             $compile(angular.element(row).contents())($scope)
         }
 
-        let actionsHtml = (data) => {
+        let taskHtml = (data) => {
+            return `<a class="btn btn-xs btn-primary" ui-sref="app.taskadd({companyId: ${data.id}})">
+                    <i class="fa fa-edit"></i>Add Task</a>`
+        }
+        let detailsHtml = (data) => {
             return `<a class="btn btn-xs btn-success" ui-sref="app.companydetails({companyId: ${data.id}})">
-                    <i class="fa fa-edit"></i>
-                </a>
-                &nbsp
-                <a class="btn btn-xs btn-primary" ui-sref="app.taskadd({companyId: ${data.id}})">
-                    <i class="fa fa-edit"></i>
-                </a>
-                &nbsp
+                    <i class="fa fa-edit">View/Add Details</i></a>`
+        }
+        let actionsHtml = (data) => {
+            return `
                 <a class="btn btn-xs btn-warning" ui-sref="app.companyedit({companyId: ${data.id}})">
                     <i class="fa fa-edit"></i>
                 </a>
@@ -66,11 +71,11 @@ class CompanieListController{
             showLoaderOnConfirm: true,
             html: false
         }, function () {
-            API.one('companies').one('Company', roleId).remove()
+            API.one('companies').one('companie', roleId).remove()
                 .then(() => {
                     swal({
                         title: 'Deleted!',
-                        text: 'Company Role has been deleted.',
+                        text: 'Company has been deleted.',
                         type: 'success',
                         confirmButtonText: 'OK',
                         closeOnConfirm: true

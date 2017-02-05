@@ -5,7 +5,7 @@ class DirectorAddController{
         this.$state = $state
         this.$stateParams = $stateParams
         let clients = this.API.service('clients')
-
+        this.companyId=$stateParams.companyId
         clients.getList()
             .then((response) => {
                 let dataSet = response.plain()
@@ -17,7 +17,6 @@ class DirectorAddController{
                     .withBootstrap()
 
                 this.dtColumns = [
-                    DTColumnBuilder.newColumn('id').withTitle('ID'),
                     DTColumnBuilder.newColumn('fname').withTitle('First Name'),
                     DTColumnBuilder.newColumn('lname').withTitle('Last Name'),
                     DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
@@ -34,7 +33,7 @@ class DirectorAddController{
         let actionsHtml = (data) => {
             return `
                 <button class="btn btn-xs btn-success" ng-click="vm.adddirector(${data.id})">
-                    <i class="fa fa-trash-o"></i>
+                    <i class="fa">Add Director</i>
                 </button>`
         }
     }
@@ -48,8 +47,8 @@ class DirectorAddController{
             text: 'You want to add this!',
             type: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#DD6B55',
-            confirmButtonText: 'Yes, delete it!',
+            confirmButtonColor: '#5cb85c',
+            confirmButtonText: 'Yes, Add it!',
             closeOnConfirm: false,
             showLoaderOnConfirm: true,
             html: false
@@ -62,7 +61,7 @@ class DirectorAddController{
             }).then(() => {
                     swal({
                         title: 'Added!',
-                        text: 'User Role has been Added.',
+                        text: 'Director has been Added.',
                         type: 'success',
                         confirmButtonText: 'OK',
                         closeOnConfirm: true

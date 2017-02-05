@@ -19,7 +19,7 @@ class CompanyclientController extends Controller
             ->where([
                 ['companyid', '=', $id],
                 ['type', '=', $type],
-            ])->get();
+            ])->select('companyclients.id as id','clients.fname','clients.lname') ->get();
         return response()->success(compact('companyclients'));
     }
 
@@ -28,5 +28,9 @@ class CompanyclientController extends Controller
         $companies = Companyclient::join('companies', 'companies.id', '=', 'companyclients.companyid')->where('companyclients.companyid', '=', $id)->get();
         return response()->success(compact('companyclients'));
     }
-
+    public function deleteCompanyclient($id)
+    {
+        Companyclient::destroy($id);
+        return response()->success('success');
+    }
 }

@@ -43,6 +43,11 @@ $api->group(['middleware' => ['api']], function ($api) {
     $api->controller('companies', 'CompanieController');
     $api->get('companyclients', 'CompanyclientController@getcompanyclient');
     $api->get('clientcompnies', 'CompanyclientController@getclientcompanies');
+    $api->delete('deleteCompanyclient/{id}', 'CompanyclientController@deleteCompanyclient');
+   
+   
+
+
 
 });
 //activitay

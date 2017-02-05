@@ -1,5 +1,5 @@
 <section class="content-header">
-    <h1>Add Client<small>Module description here</small></h1>
+    <h1>Add Client<small>Add a new client</small></h1>
     <ol class="breadcrumb">
         <li><a ui-sref="app.landing"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a ui-sref="app.clientlist">Cients List</a></li>
@@ -69,21 +69,18 @@
                             </div>
                         </div>
                         <div class="form-group" ng-class="{ 'has-error': roleForm.dob.$invalid && ( vm.formSubmitted || roleForm.dob.$touched) }">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Date</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Date of Birth</label>
                            <div class="col-sm-10">
-                            <input type="text" placeholder="Date Of Birth"  class="form-control pull-right" ng-model="vm.dob"  name="dob"  id="datepicker">
+                            <p class="input-group">
+          <input type="text" name="dob"  class="form-control" uib-datepicker-popup="{{format}}" ng-model="vm.dob" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"  required />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
                                 <p ng-show="roleForm.role.$error.required && ( vm.formSubmitted || roleForm.role.$touched)" class="help-block">Date Of Birth is required. </p>
                             </div>
                         </div>
- <input datetime-picker ng-model="model" />
-                <!--
-<!---
-                            <label for="inputEmail3" class="col-sm-2 control-label">Date of birth</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" ng-model="vm.dob" name="dob" placeholder="Date of birth" required>
-                                <p ng-show="roleForm.role.$error.required && ( vm.formSubmitted || roleForm.role.$touched)" class="help-block">Date Of birth is required. </p>
-                            </div> -->
-                        </div>
+                   
                         <div class="form-group" ng-class="{ 'has-error': roleForm.ninumber.$invalid && ( vm.formSubmitted || roleForm.ninumber.$touched) }">
                             <label for="inputEmail3" class="col-sm-2 control-label">NI Number</label>
                             <div class="col-sm-10">
@@ -91,6 +88,7 @@
                                 <p ng-show="roleForm.role.$error.required && ( vm.formSubmitted || roleForm.role.$touched)" class="help-block">NI Number is required. </p>
                             </div>
                         </div>
+                             </div>
                     <div class="box-footer">
                         <a ui-sref="app.clientlist" class="btn btn-default"><i class="fa fa-angle-double-left"></i> Back</a>
                         <button type="submit" class="btn btn-primary pull-right">Add New</button>

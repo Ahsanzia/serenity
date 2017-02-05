@@ -1,3 +1,5 @@
+import {StakeAddComponent} from './app/components/stake-add/stake-add.component';
+import {MyDateComponent} from './app/components/my-date/my-date.component';
 import {CostListComponent} from './app/components/cost-list/cost-list.component';
 import {CostEditComponent} from './app/components/cost-edit/cost-edit.component';
 import {CostAddComponent} from './app/components/cost-add/cost-add.component';
@@ -45,6 +47,8 @@ import { LoginFormComponent } from './app/components/login-form/login-form.compo
 import { RegisterFormComponent } from './app/components/register-form/register-form.component'
 
 angular.module('app.components')
+	.component('stakeAdd', StakeAddComponent)
+	.component('myDate', MyDateComponent)
 	.component('costList', CostListComponent)
 	.component('costEdit', CostEditComponent)
 	.component('costAdd', CostAddComponent)

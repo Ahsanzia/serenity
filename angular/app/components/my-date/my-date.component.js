@@ -1,27 +1,8 @@
-class ClientEditController{
-    constructor ($scope,$stateParams, $state, API) {
-        'ngInject'
+class MyDateController{
+    constructor($scope){
+        'ngInject';
 
-        this.$state = $state
-        this.formSubmitted = false
-        this.alerts = []
-
-        if ($stateParams.alerts) {
-            this.alerts.push($stateParams.alerts)
-        }
-
-        let clientId = $stateParams.clientId
-
-
-        let client = API.service('client-show', API.all('clients'))
-        client.one(clientId).get()
-            .then((response) => {
-                this.client = API.copy(response)
-                 this.client.data.dob =  new Date(this.client.data.dob)
-        //         $scope.dt = new Date(this.client.data.dob);
-            })
-  
-   $scope.today = function() {
+    $scope.today = function() {
     $scope.dt = new Date();
   };
   $scope.today();
@@ -107,29 +88,13 @@ class ClientEditController{
   }
     }
 
-
-    save (isValid) {
-        if (isValid) {
-            let $state = this.$state
-            this.client.put()
-                .then(() => {
-                    let alert = { type: 'success', 'title': 'Success!', msg: 'Client has been updated.' }
-                    $state.go($state.current, { alerts: alert})
-                }, (response) => {
-                    let alert = { type: 'error', 'title': 'Error!', msg: response.data.message }
-                    $state.go($state.current, { alerts: alert})
-                })
-        } else {
-            this.formSubmitted = true
-        }
+    $onInit(){
     }
-
-    $onInit () {}
 }
 
-export const ClientEditComponent = {
-    templateUrl: './views/app/components/client-edit/client-edit.component.html',
-    controller: ClientEditController,
+export const MyDateComponent = {
+    templateUrl: './views/app/components/my-date/my-date.component.html',
+    controller: MyDateController,
     controllerAs: 'vm',
     bindings: {}
 }

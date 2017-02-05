@@ -255,6 +255,20 @@ export function RoutesConfig ($stateProvider, $urlRouterProvider) {
           alerts: null,
           companyId: null
       }
+  }).state('app.stakeadd', {
+      url: '/stake-add/:companyId',
+      data: {
+          auth: true
+      },
+      views: {
+          'main@app': {
+              template: '<stake-add></director-add>'
+          }
+      },
+      params: {
+          alerts: null,
+          companyId: null
+      }
   }).state('app.pendingcomplete', {
       url: '/pending-complete/:companyId',
       data: {

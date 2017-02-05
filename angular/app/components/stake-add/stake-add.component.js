@@ -1,11 +1,11 @@
-class ClientListsController{
-    constructor ($scope, $state, $compile, DTOptionsBuilder, DTColumnBuilder, API) {
+class StakeAddController{
+     constructor ($stateParams,$scope, $state, $compile, DTOptionsBuilder, DTColumnBuilder, API) {
         'ngInject'
         this.API = API
         this.$state = $state
-
+        this.$stateParams = $stateParams
         let clients = this.API.service('clients')
-
+        this.companyId=$stateParams.companyId
         clients.getList()
             .then((response) => {
                 let dataSet = response.plain()
@@ -19,10 +19,6 @@ class ClientListsController{
                 this.dtColumns = [
                     DTColumnBuilder.newColumn('fname').withTitle('First Name'),
                     DTColumnBuilder.newColumn('lname').withTitle('Last Name'),
-                    DTColumnBuilder.newColumn('drivinglicence').withTitle('Driving Licence'),
-                    DTColumnBuilder.newColumn('idcard').withTitle('ID Card'),
-                    DTColumnBuilder.newColumn('passport').withTitle('Passport'),
-                    DTColumnBuilder.newColumn('dob').withTitle('Date Of Birth'),
                     DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
                         .renderWith(actionsHtml)
                 ]
@@ -36,36 +32,36 @@ class ClientListsController{
 
         let actionsHtml = (data) => {
             return `
-                <a class="btn btn-xs btn-warning" ui-sref="app.clientedit({clientId: ${data.id}})">
-                    <i class="fa fa-edit"></i>
-                </a>
-                &nbsp
-                <button class="btn btn-xs btn-danger" ng-click="vm.delete(${data.id})">
-                    <i class="fa fa-trash-o"></i>
+                <button class="btn btn-xs btn-success" ng-click="vm.adddirector(${data.id})">
+                    <i class="fa">Add Stakeholder</i>
                 </button>`
         }
     }
 
-    delete (roleId) {
+    adddirector (userid) {
         let API = this.API
         let $state = this.$state
-
+        let $stateParams= this.$stateParams
         swal({
             title: 'Are you sure?',
-            text: 'You will not be able to recover this data!',
+            text: 'You want to add this!',
             type: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#DD6B55',
-            confirmButtonText: 'Yes, delete it!',
+            confirmButtonColor: '#5cb85c',
+            confirmButtonText: 'Yes, Add it!',
             closeOnConfirm: false,
             showLoaderOnConfirm: true,
             html: false
         }, function () {
-            API.one('clients').one('client', roleId).remove()
-                .then(() => {
+            let clients = API.service('companyclient', API.all('companies'))
+            clients.post({
+                'companyid': $stateParams.companyId,
+                'clientid': userid,
+                'type' : 2
+            }).then(() => {
                     swal({
-                        title: 'Deleted!',
-                        text: 'Client has been deleted.',
+                        title: 'Added!',
+                        text: 'Stakeholder has been Added.',
                         type: 'success',
                         confirmButtonText: 'OK',
                         closeOnConfirm: true
@@ -76,12 +72,13 @@ class ClientListsController{
         })
     }
 
-    $onInit () {}
+    $onInit(){
+    }
 }
 
-export const ClientListsComponent = {
-    templateUrl: './views/app/components/client-lists/client-lists.component.html',
-    controller: ClientListsController,
+export const StakeAddComponent = {
+    templateUrl: './views/app/components/stake-add/stake-add.component.html',
+    controller: StakeAddController,
     controllerAs: 'vm',
     bindings: {}
 }

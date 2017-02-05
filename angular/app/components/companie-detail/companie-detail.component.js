@@ -5,43 +5,15 @@ class CompanieDetailController{
         this.$state = $state
 
         let clientId = $stateParams.companyId
-       // let client = API.service('company-show', API.all('companies'))
-        let client = this.API.service('companies')
-        client.getList()
+       
+        let company = API.service('company-show', API.all('companies'))
+        company.one(clientId).get()
             .then((response) => {
-                let dataSet = response.plain()
+                this.company = API.copy(response)
+                this.company.data.appdate =  new Date(this.company.data.appdate)
 
-                this.dtOptions = DTOptionsBuilder.newOptions()
-                    .withOption('data', dataSet)
-                    .withOption('createdRow', createdRow)
-                    .withOption('responsive', true)
-                    .withBootstrap()
-
-                this.dtColumns = [
-                    DTColumnBuilder.newColumn('name').withTitle('Company Name'),
-                    DTColumnBuilder.newColumn('regno').withTitle('Registration-No'),
-                    DTColumnBuilder.newColumn('casetype').withTitle('Case Type'),
-                    DTColumnBuilder.newColumn('appdate').withTitle('Appointment Date'),
-                ]
-
-                this.displayTable = true
             })
-
-        let createdRow = (row) => {
-            $compile(angular.element(row).contents())($scope)
         }
-
-        let actionsHtml = (data) => {
-            return `
-                <a class="btn btn-xs btn-warning" ui-sref="app.userrolesedit({roleId: ${data.id}})">
-                    <i class="fa fa-edit"></i>
-                </a>
-                &nbsp
-                <button class="btn btn-xs btn-danger" ng-click="vm.delete(${data.id})">
-                    <i class="fa fa-trash-o"></i>
-                </button>`
-        }
-    }
 
     $onInit () {}
 }

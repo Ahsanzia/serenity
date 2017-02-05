@@ -26,7 +26,7 @@ class CompanieController extends Controller
     {
         $clients = Companie::find($id);
 
-        return response()->success(compact('clients'));
+        return response()->success($clients);
     }
 
     public function postProfile()
@@ -80,7 +80,7 @@ class CompanieController extends Controller
         return response()->success('success');
     }
 
-    public function deleteCompany($id)
+    public function deleteCompanie($id)
     {
         Companie::destroy($id);
 

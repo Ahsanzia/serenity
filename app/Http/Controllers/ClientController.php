@@ -37,6 +37,7 @@ class ClientController extends Controller
             'passport' => Input::get('passport'),
             'utilitybill' => Input::get('utilitybill'),
             'dob' => Input::get('dob'),
+            'idcard' => Input::get('idcard'),
             'ninumber' => Input::get('ninumber'),
             'userid' => 1,
         ]);
@@ -54,6 +55,7 @@ class ClientController extends Controller
                 'data.drivinglicence',
                 'data.passport',
                 'data.utilitybill',
+                'data.idcard',
                 'data.dob',
                 'data.ninumber',
                 'data.id'
@@ -68,6 +70,7 @@ class ClientController extends Controller
             'lname' => $clientForm['data.lname'],
             'drivinglicence' => $clientForm['data.drivinglicence'],
             'passport' => $clientForm['data.passport'],
+            'idcard' => $clientForm['data.idcard'],
             'utilitybill' => $clientForm['data.utilitybill'],
             'dob' => $clientForm['data.dob'],
             'ninumber' => $clientForm['data.ninumber'],
