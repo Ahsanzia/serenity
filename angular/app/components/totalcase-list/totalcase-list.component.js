@@ -1,5 +1,5 @@
 class TotalcaseListController{
-    constructor ($scope, $state, $compile, DTOptionsBuilder, DTColumnBuilder, API) {
+    constructor ($stateParams,$scope, $state, $compile, DTOptionsBuilder, DTColumnBuilder, API) {
         'ngInject'
         this.API = API
         this.$state = $state
@@ -9,7 +9,7 @@ class TotalcaseListController{
         this.caseId=$stateParams.caseId
         var qParams = [];
         qParams['id'] = $stateParams.caseId
-        clientcompnies.getList()
+        clientcompnies.getList(qParams)
             .then((response) => {
                 let dataSet = response.plain()
 

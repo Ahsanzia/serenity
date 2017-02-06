@@ -23,7 +23,12 @@ class ClientListsController{
                     DTColumnBuilder.newColumn('idcard').withTitle('ID Card'),
                     DTColumnBuilder.newColumn('passport').withTitle('Passport'),
                     DTColumnBuilder.newColumn('dob').withTitle('Date Of Birth'),
+                    DTColumnBuilder.newColumn(null).withTitle('View Cases').notSortable()
+                        .renderWith(actionsHtml2)
+           
                     DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
+           
+
                         .renderWith(actionsHtml)
                 ]
 
@@ -34,12 +39,17 @@ class ClientListsController{
             $compile(angular.element(row).contents())($scope)
         }
 
+
+        let actionsHtml2 = (data) => {
+            return `
+            <a class="btn btn-xs btn-primary" ui-sref="app.clientcaselist({caseId: ${data.id}})">
+                    <i class="fa fa-edit">view cases</i>
+                </a>
+                `
+        }
+
         let actionsHtml = (data) => {
             return `
-            <a class="btn btn-xs btn-warning" ui-sref="app.clientcaselist({caseId: ${data.id}})">
-                    <i class="fa fa-edit"></i>
-                </a>
-                  &nbsp
                 <a class="btn btn-xs btn-warning" ui-sref="app.clientedit({clientId: ${data.id}})">
                     <i class="fa fa-edit"></i>
                 </a>

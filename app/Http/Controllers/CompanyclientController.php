@@ -23,9 +23,9 @@ class CompanyclientController extends Controller
         return response()->success(compact('companyclients'));
     }
 
-    public function getclientcompanies(equest $request)
+    public function getclientcompanies(Request $request)
     {    $id = $request->input('id');
-        $clientcompnies = Companyclient::join('companies', 'companies.id', '=', 'companyclients.companyid')->where('companyclients.companyid', '=', $id)->get();
+        $clientcompnies = Companyclient::join('companies', 'companies.id', '=', 'companyclients.companyid')->where('companyclients.clientid', '=', $id)->get();
         return response()->success(compact('clientcompnies'));
     }
     public function deleteCompanyclient($id)
