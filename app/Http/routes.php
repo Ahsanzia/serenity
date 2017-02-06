@@ -55,15 +55,12 @@ $api->group(['middleware' => ['api']], function ($api) {
 $api->group(['middleware' => ['api']], function ($api) {
     $api->get('taskp', 'ActivitylogController@gettaskp');
     $api->get('taskc', 'ActivitylogController@gettaskc');
+    $api->get('taskpt', 'ActivitylogController@gettaskpt');
+    $api->get('taskct', 'ActivitylogController@gettaskct');
+  
     $api->controller('tasks', 'ActivitylogController');
+    $api->controller('costs', 'CasecostController');
+     
 });
 
 
-#Cost
-$api->group(['middleware' => ['api']], function ($api) {
-    $api->get('casecost/', 'CasecostController@getCasecosts');
-    $api->get('casecost/{cost_id}', 'CasecostController@getCasecost');
-    $api->post('casecost/', 'CasecostController@postCasecost');
-    $api->put('casecost/', 'CasecostController@putCasecost');
-    $api->delete('casecost/{cost_id}', 'CasecostController@deleteCase');
-});

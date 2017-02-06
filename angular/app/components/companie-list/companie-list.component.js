@@ -23,8 +23,10 @@ class CompanieListController{
                     DTColumnBuilder.newColumn('appdate').withTitle('Appointment Date'),
                     DTColumnBuilder.newColumn(null).withTitle('Add Task').notSortable()
                         .renderWith(taskHtml),    
-                    DTColumnBuilder.newColumn(null).withTitle('View/Add Details').notSortable()
+                    DTColumnBuilder.newColumn(null).withTitle('Add Details').notSortable()
                     .renderWith(detailsHtml),
+                    DTColumnBuilder.newColumn(null).withTitle('TCA Summary').notSortable()
+                    .renderWith(tcaHtml),
                     DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
                         .renderWith(actionsHtml)
                 ]
@@ -34,6 +36,12 @@ class CompanieListController{
 
         let createdRow = (row) => {
             $compile(angular.element(row).contents())($scope)
+        }
+
+
+        let tcaHtml = (data) => {
+            return `<a class="btn btn-xs btn-warning" ui-sref="app.summaryfull({caseId: ${data.id}})">
+                    <i class="fa fa-edit"></i>View Summary</a>`
         }
 
         let taskHtml = (data) => {

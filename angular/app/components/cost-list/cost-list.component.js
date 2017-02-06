@@ -4,7 +4,7 @@ class CostListController{
         this.API = API
         this.$state = $state
 
-        let Cases = this.API.service('cases')
+        let Cases = this.API.service('costs')
 
         Cases.getList()
             .then((response) => {
@@ -17,10 +17,13 @@ class CostListController{
                     .withBootstrap()
 
                 this.dtColumns = [
-                    DTColumnBuilder.newColumn('id').withTitle('ID'),
-                    DTColumnBuilder.newColumn('name').withTitle('Case Name'),
-                    DTColumnBuilder.newColumn('no').withTitle('Case Number'),
-                    DTColumnBuilder.newColumn('created_at').withTitle('Created'),
+                    DTColumnBuilder.newColumn('director').withTitle('Director'),
+                    DTColumnBuilder.newColumn('manager').withTitle('Manager'),
+                    DTColumnBuilder.newColumn('s_admin').withTitle('S.Admin'),
+                    DTColumnBuilder.newColumn('admin').withTitle('Admin'),
+                    DTColumnBuilder.newColumn('asst_admin').withTitle('Asst.Admin'),
+                    DTColumnBuilder.newColumn('j_admin').withTitle('Junior Admin'),
+                    
                     DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
                         .renderWith(actionsHtml)
                 ]
@@ -34,13 +37,9 @@ class CostListController{
 
         let actionsHtml = (data) => {
             return `
-              <a class="btn btn-xs btn-warning" ui-sref="app.caseedit({caseId: ${data.id}})">
+              <a class="btn btn-xs btn-warning" ui-sref="app.costedit({caseId: ${data.id}})">
                     <i class="fa fa-edit"></i>
-                </a>
-                  &nbsp
-                <button class="btn btn-xs btn-danger" ng-click="vm.delete(${data.id})">
-                    <i class="fa fa-trash-o"></i>
-                </button>`
+                </a>`
         }
     }
     delete (caseId) {

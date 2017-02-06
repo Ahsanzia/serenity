@@ -1,12 +1,15 @@
-class ClientListsController{
+class TotalcaseListController{
     constructor ($scope, $state, $compile, DTOptionsBuilder, DTColumnBuilder, API) {
         'ngInject'
         this.API = API
         this.$state = $state
 
-        let clients = this.API.service('clients')
-
-        clients.getList()
+        let clientcompnies = this.API.service('clientcompnies')
+    
+        this.caseId=$stateParams.caseId
+        var qParams = [];
+        qParams['id'] = $stateParams.caseId
+        clientcompnies.getList()
             .then((response) => {
                 let dataSet = response.plain()
 
@@ -17,12 +20,16 @@ class ClientListsController{
                     .withBootstrap()
 
                 this.dtColumns = [
-                    DTColumnBuilder.newColumn('fname').withTitle('First Name'),
-                    DTColumnBuilder.newColumn('lname').withTitle('Last Name'),
-                    DTColumnBuilder.newColumn('drivinglicence').withTitle('Driving Licence'),
-                    DTColumnBuilder.newColumn('idcard').withTitle('ID Card'),
-                    DTColumnBuilder.newColumn('passport').withTitle('Passport'),
-                    DTColumnBuilder.newColumn('dob').withTitle('Date Of Birth'),
+                    DTColumnBuilder.newColumn('name').withTitle('Company Name'),
+                    DTColumnBuilder.newColumn('regno').withTitle('Registration-No'),
+                    DTColumnBuilder.newColumn('casetype').withTitle('Case Type'),
+                    DTColumnBuilder.newColumn('appdate').withTitle('Appointment Date'),
+                    DTColumnBuilder.newColumn(null).withTitle('Add Task').notSortable()
+                        .renderWith(taskHtml),    
+                    DTColumnBuilder.newColumn(null).withTitle('Add Details').notSortable()
+                    .renderWith(detailsHtml),
+                    DTColumnBuilder.newColumn(null).withTitle('TCA Summary').notSortable()
+                    .renderWith(tcaHtml),
                     DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
                         .renderWith(actionsHtml)
                 ]
@@ -34,13 +41,23 @@ class ClientListsController{
             $compile(angular.element(row).contents())($scope)
         }
 
+
+        let tcaHtml = (data) => {
+            return `<a class="btn btn-xs btn-warning" ui-sref="app.summaryfull({caseId: ${data.id}})">
+                    <i class="fa fa-edit"></i>View Summary</a>`
+        }
+
+        let taskHtml = (data) => {
+            return `<a class="btn btn-xs btn-primary" ui-sref="app.taskadd({companyId: ${data.id}})">
+                    <i class="fa fa-edit"></i>Add Task</a>`
+        }
+        let detailsHtml = (data) => {
+            return `<a class="btn btn-xs btn-success" ui-sref="app.companydetails({companyId: ${data.id}})">
+                    <i class="fa fa-edit">View/Add Details</i></a>`
+        }
         let actionsHtml = (data) => {
             return `
-            <a class="btn btn-xs btn-warning" ui-sref="app.clientcaselist({caseId: ${data.id}})">
-                    <i class="fa fa-edit"></i>
-                </a>
-                  &nbsp
-                <a class="btn btn-xs btn-warning" ui-sref="app.clientedit({clientId: ${data.id}})">
+                <a class="btn btn-xs btn-warning" ui-sref="app.companyedit({companyId: ${data.id}})">
                     <i class="fa fa-edit"></i>
                 </a>
                 &nbsp
@@ -65,11 +82,11 @@ class ClientListsController{
             showLoaderOnConfirm: true,
             html: false
         }, function () {
-            API.one('clients').one('client', roleId).remove()
+            API.one('companies').one('companie', roleId).remove()
                 .then(() => {
                     swal({
                         title: 'Deleted!',
-                        text: 'Client has been deleted.',
+                        text: 'Company has been deleted.',
                         type: 'success',
                         confirmButtonText: 'OK',
                         closeOnConfirm: true
@@ -83,9 +100,9 @@ class ClientListsController{
     $onInit () {}
 }
 
-export const ClientListsComponent = {
-    templateUrl: './views/app/components/client-lists/client-lists.component.html',
-    controller: ClientListsController,
+export const TotalcaseListComponent = {
+    templateUrl: './views/app/components/totalcase-list/totalcase-list.component.html',
+    controller: TotalcaseListController,
     controllerAs: 'vm',
     bindings: {}
 }

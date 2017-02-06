@@ -5,75 +5,66 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Auth;
+use Hash;
+use Input;
+use Validator;
+use App\Casecost;
+
 
 class CasecostController extends Controller
 {
-    //
-    /**
-     * Get all users.
-     *
-     * @return JSON
-     */
-    public function getCasecosts()
+      public function getIndex()
     {
-        $casecost = CaseCost::all();
-        return response()->success(compact('casecost'));
+        $costs = Casecost::all();
+
+        return response()->success(compact('costs'));
     }
-    /**
-     * Get all users.
-     *
-     * @return JSON
-     */
-    public function getCasecost($id)
+/***
+    public function getClientShow($id)
     {
-        $cases = CaseCost::find($id);
-        return response()->success($cases);
+        $clients = Client::find($id);
+
+        return response()->success($clients);
     }
-    /**
-     * Post Case.
-     *
-     * @return JSON
-     */
-    public function postCasecost()
+
+    
+
+    public function putClientShow(Request $request)
     {
-        $cases = CaseCost::create([
-            'director' => Input::get('director'),
-            'manager' => str_slug(Input::get('manager'), '.'),
-            's_admin' => Input::get('s_admin'),
-            'admin' => Input::get('admin'),
-            'asst_admin' => Input::get('asst_admin'),
-            'j_admin' => Input::get('j_admin')
-        ]);
-        return response()->success(compact('cases'));
-    }
-    /**
-     * Post Case.
-     *
-     * @return JSON
-     */
-    public function putCasecost()
-    {
-        $caseForm = Input::get('data');
-        $caseId = intval($caseForm["id"]);
-        $caseData = [
-            'director' => $caseForm["director"],
-            'manager' => $caseForm["manager"],
-            's_admin' => $caseForm["s_admin"],
-            'admin' => $caseForm["admin"],
-            'asst_admin' => $caseForm["asst_admin"],
-            'j_admin' => $caseForm["j_admin"],
+        $clientForm = array_dot(
+            app('request')->only(
+                'data.fname',
+                'data.mname',
+                'data.lname',
+                'data.drivinglicence',
+                'data.passport',
+                'data.utilitybill',
+                'data.idcard',
+                'data.dob',
+                'data.ninumber',
+                'data.id'
+            )
+        );
+
+        $clientid = intval($clientForm['data.id']);
+
+        $cientdata = [
+            'fname' => $clientForm['data.fname'],
+            'mname' => $clientForm['data.mname'],
+            'lname' => $clientForm['data.lname'],
+            'drivinglicence' => $clientForm['data.drivinglicence'],
+            'passport' => $clientForm['data.passport'],
+            'idcard' => $clientForm['data.idcard'],
+            'utilitybill' => $clientForm['data.utilitybill'],
+            'dob' => $clientForm['data.dob'],
+            'ninumber' => $clientForm['data.ninumber'],
         ];
-        $affectedRows = CaseCost::where('id', '=', $caseId)->update($caseData);
+
+        $affectedRows = Client::where('id', '=', $clientid)->update($cientdata);
+
         return response()->success('success');
     }
-    /**
-     * Post Case.
-     *
-     * @return JSON
-     */
-    public function deleteCase($id)
-    {
-        CaseCost::destroy($id);
-        return response()->success('success');
-    }
+
+**/
 }

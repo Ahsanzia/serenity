@@ -19,28 +19,58 @@ class ActivitylogController extends Controller
         $client = activitylog::create([
             'narration' => Input::get('narration'),
             'reminder_date' => Input::get('reminder_date'),
-            'companiesid' => Input::get('companiesid')
+            'companiesid' => Input::get('companiesid'),
+            'is_done' => "0",
+             
         ]);
 
         return response()->success(compact('client'));
     }
     public function putTaskShow(Request $request)
     {
-        $caseForm = Input::get('data');
-        $caseId = intval($caseForm["id"]);
-        $caseData = [
-            'director'=>$request->input('director'),
-            'manager'=>$request->input('manager'),
-            's_admin'=>$request->input('s_admin'),
-            'admin'=>$request->input('admin'),
-            'asst_admin'=>$request->input('asst_admin'),
-            'j_admin'=>$request->input('j_admin'),
-            'narration'=>$request->input('narration'),
-            'explanation'=>$request->input('explanation'),
-            'justification'=>$request->input('justification'),
-            'is_done'=>$request->input('is_done'),
+
+          $clientForm = array_dot(
+            app('request')->only(
+                'data.director',
+                'data.manager',
+                'data.s_admin',
+                'data.admin',
+                'data.asst_admin',
+                'data.j_admin',
+                'data.explanation',
+                'data.justification',
+                'data.is_done',
+                'data.cassification_id',
+                'data.id'
+                
+            )
+        );
+
+        $clientid = intval($clientForm['data.id']);
+     
+
+        $cientdata = [
+            'director' => $clientForm['data.director'],
+            'manager' => $clientForm['data.manager'],
+            's_admin' => $clientForm['data.s_admin'],
+            'admin' => $clientForm['data.admin'],
+            'asst_admin' => $clientForm['data.asst_admin'],
+            'j_admin' => $clientForm['data.j_admin'],
+            'explanation' => $clientForm['data.explanation'],
+            'justification' => $clientForm['data.justification'],
+            'cassification_id' => $clientForm['data.cassification_id'],
+            'is_done' => $clientForm['data.is_done'],
+     
+
+            'director_c' => "1",
+            'manager_c' => "1",
+            's_admin_c' => "1",
+            'admin_c' => "1",
+            'asst_admin_c' => "1",
+            'j_admin_c' => "1"
+     
         ];
-        $affectedRows = activitylog::where('id', '=', $caseId)->update($caseData);
+        $affectedRows = activitylog::where('id', '=', $clientid)->update($cientdata);
         return response()->success('success');
     }
     public function getCompany(Request $request)
@@ -62,7 +92,7 @@ class ActivitylogController extends Controller
 
           $companyid = $request->input('id');
         $taskp = activitylog::where([
-          ['companiesid', 'like', $companyid],
+          ['companiesid', '=', $companyid],
           ['is_done', '=', 0],
       ])->get();
       return response()->success(compact('taskp'));
@@ -77,17 +107,66 @@ class ActivitylogController extends Controller
         ])->get();
         return response()->success(compact('taskc'));
     }
-    //
-    //
-    //  public function getfinishedtasks(Request $request)
-    // {
 
-    //  $companyid = $request->input('id');
-    //  $companyclients = activitylog::where([
-    //      ['companyid', '=', $companyid],
-    //      ['is_done', '=', 1],
-    //  ])->get();
-    //  return response()->success(compact('companyclients'));
-    // }
+ public function getTaskpt()
+    {
+
+        $taskpt = activitylog::where([
+          ['is_done', '=', 0],
+          ['reminder_date', '<=', date('Y-m-d')],
+      ])->get();
+      return response()->success(compact('taskpt'));
+    }
+    public function getTaskct()
+    {
+
+        $taskct = activitylog::where([
+            ['is_done', '=', 1],
+          ['reminder_date', '=', date('Y-m-d')],
+        ])->get();
+        return response()->success(compact('taskct'));
+    }
+
+
+    public function getSummaryfull(Request $request)
+    {
+
+               $companyid = $request->input('id');
+
+         $summaryfull = activitylog::where([
+                ['companiesid', '=', $companyid]
+            ])->groupBy('cassification_id')
+   ->selectRaw('cassification_id , SUM(director) as director,SUM(manager) as manager
+    ,SUM(s_admin) as s_admin
+    ,SUM(admin) as admin
+    ,SUM(asst_admin) as asst_admin
+    ,SUM(j_admin) as j_admin
+    ,(director+manager+s_admin+admin+asst_admin+j_admin) as totalval
+    ,((director*director_c)+(manager * manager_c)+(s_admin * s_admin_c)+(admin * admin_c)+(asst_admin * asst_admin_c)+(j_admin*j_admin_c)) as totalcost
+    , (((director*director_c)+(manager * manager_c)+(s_admin * s_admin_c)+(admin * admin_c)+(asst_admin * asst_admin_c)+(j_admin*j_admin_c)) /  (director+manager+s_admin+admin+asst_admin+j_admin)) as avgcost
+    ')
+   ->get();
+                    return response()->success(compact('summaryfull'));
+    }
+
+   public function getSummaryfulltotal(Request $request)
+    {
+
+               $companyid = $request->input('id');
+
+         $summaryfulltotal = activitylog::where([
+                ['companiesid', '=', $companyid]
+            ])->selectRaw('"Total" AS total,SUM(director) as director,SUM(manager) as manager
+    ,SUM(s_admin) as s_admin
+    ,SUM(admin) as admin
+    ,SUM(asst_admin) as asst_admin
+    ,SUM(j_admin) as j_admin
+    ,SUM(director+manager+s_admin+admin+asst_admin+j_admin) as totalval
+    ,SUM((director*director_c)+(manager * manager_c)+(s_admin * s_admin_c)+(admin * admin_c)+(asst_admin * asst_admin_c)+(j_admin*j_admin_c)) as totalcost
+    ,(SUM(((director*director_c)+(manager * manager_c)+(s_admin * s_admin_c)+(admin * admin_c)+(asst_admin * asst_admin_c)+(j_admin*j_admin_c)) /  (director+manager+s_admin+admin+asst_admin+j_admin))/4) as avgcost
+    ')
+   ->get();
+                    return response()->success(compact('summaryfulltotal'));
+    }
 
 }

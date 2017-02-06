@@ -1,17 +1,14 @@
-class PendingCompleteController{
-    constructor($stateParams,$scope, $state, $compile, DTOptionsBuilder, DTColumnBuilder, API) {
+class TodayListController{
+  constructor($stateParams,$scope, $state, $compile, DTOptionsBuilder, DTColumnBuilder, API) {
         'ngInject'
         this.API = API
         this.$state = $state
 
-        let taskp =  API.all('taskp')
+        let taskpt =  API.all('taskpt')
         //  let clients = API.service('client', API.all('companyclients'))
         //  let Roles = this.API.service('clients', this.API.all('companyclients'))
 
-        this.companyId=$stateParams.companyId
-        var qParams = [];
-        qParams['id'] = $stateParams.companyId
-        taskp.getList(qParams)
+        taskpt.getList()
             .then((response) => {
                 let dataSet = response.plain()
                 this.dtOptions = DTOptionsBuilder.newOptions()
@@ -37,13 +34,11 @@ class PendingCompleteController{
         //HERE
 
 
-           let taskc =  API.all('taskc')
+           let taskct =  API.all('taskct')
         //  let clients = API.service('client', API.all('companyclients'))
         //  let Roles = this.API.service('clients', this.API.all('companyclients'))
 
-        var qParams = [];
-        qParams['id'] = $stateParams.companyId
-        taskc.getList(qParams)
+        taskct.getList()
             .then((response) => {
                 let dataSet2 = response.plain()
                 this.dtOptions2 = DTOptionsBuilder.newOptions()
@@ -78,14 +73,11 @@ class PendingCompleteController{
 
 
     }
-
-    $onInit(){
-    }
 }
 
-export const PendingCompleteComponent = {
-    templateUrl: './views/app/components/pending-complete/pending-complete.component.html',
-    controller: PendingCompleteController,
+export const TodayListComponent = {
+    templateUrl: './views/app/components/today-list/today-list.component.html',
+    controller: TodayListController,
     controllerAs: 'vm',
     bindings: {}
 }

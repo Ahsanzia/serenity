@@ -11,12 +11,18 @@ class TaskEditController{
         }
 
         let clientId = $stateParams.clientId
-        console.log(clientId )
+        
 
         let task = API.service('task-show', API.all('tasks'))
         task.one(clientId).get()
             .then((response) => {
                 this.task = API.copy(response)
+                this.clientId=this.task.data.companiesid
+                if(this.task.data.is_done  == 1){
+                this.task.data.is_done = true;         
+                }else{
+                this.task.data.is_done = false;             
+                }
             })
 
     }
@@ -27,7 +33,7 @@ class TaskEditController{
             let $state = this.$state
             this.task.put()
                 .then(() => {
-                    let alert = { type: 'success', 'title': 'Success!', msg: 'Client has been updated.' }
+                    let alert = { type: 'success', 'title': 'Success!', msg: 'Task has been updated.' }
                     $state.go($state.current, { alerts: alert})
                 }, (response) => {
                     let alert = { type: 'error', 'title': 'Error!', msg: response.data.message }

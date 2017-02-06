@@ -362,7 +362,45 @@ export function RoutesConfig ($stateProvider, $urlRouterProvider) {
           alerts: null,
           caseId: null
       }
-  }).state('app.userlist', {
+  }).state('app.summaryfull', {
+      url: '/summaryfull-list/:caseId',
+      data: {
+          auth: true
+      },
+      views: {
+          'main@app': {
+              template: '<summaryfull-list></summaryfull-list>'
+          }
+      },
+      params: {
+          alerts: null,
+          caseId: null
+      }
+  }).state('app.clientcaselist', {
+      url: '/totalcase-list/:caseId',
+      data: {
+          auth: true
+      },
+      views: {
+          'main@app': {
+              template: '<totalcase-list></totalcase-list>'
+          }
+      },
+      params: {
+          alerts: null,
+          caseId: null
+      }
+  }).state('app.todaylist', {
+      url: '/today-lists',
+      data: {
+        auth: true
+      },
+      views: {
+        'main@app': {
+          template: '<today-list></user-list>'
+        }
+      }
+    }).state('app.userlist', {
       url: '/user-lists',
       data: {
         auth: true

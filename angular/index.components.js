@@ -1,3 +1,7 @@
+import {TotalcaseListComponent} from './app/components/totalcase-list/totalcase-list.component';
+import {TodayListComponent} from './app/components/today-list/today-list.component';
+import {SummaryfullListComponent} from './app/components/summaryfull-list/summaryfull-list.component';
+import {SummaryListComponent} from './app/components/summary-list/summary-list.component';
 import {StakeAddComponent} from './app/components/stake-add/stake-add.component';
 import {MyDateComponent} from './app/components/my-date/my-date.component';
 import {CostListComponent} from './app/components/cost-list/cost-list.component';
@@ -47,6 +51,10 @@ import { LoginFormComponent } from './app/components/login-form/login-form.compo
 import { RegisterFormComponent } from './app/components/register-form/register-form.component'
 
 angular.module('app.components')
+	.component('totalcaseList', TotalcaseListComponent)
+	.component('todayList', TodayListComponent)
+	.component('summaryfullList', SummaryfullListComponent)
+	.component('summaryList', SummaryListComponent)
 	.component('stakeAdd', StakeAddComponent)
 	.component('myDate', MyDateComponent)
 	.component('costList', CostListComponent)
