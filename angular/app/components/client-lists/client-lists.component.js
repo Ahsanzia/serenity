@@ -23,13 +23,8 @@ class ClientListsController{
                     DTColumnBuilder.newColumn('idcard').withTitle('ID Card'),
                     DTColumnBuilder.newColumn('passport').withTitle('Passport'),
                     DTColumnBuilder.newColumn('dob').withTitle('Date Of Birth'),
-                    DTColumnBuilder.newColumn(null).withTitle('View Cases').notSortable()
-                        .renderWith(actionsHtml2)
-           
-                    DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
-           
-
-                        .renderWith(actionsHtml)
+                    DTColumnBuilder.newColumn(null).withTitle('View Cases').notSortable().renderWith(actionsHtml2),
+                    DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable().renderWith(actionsHtml)
                 ]
 
                 this.displayTable = true
