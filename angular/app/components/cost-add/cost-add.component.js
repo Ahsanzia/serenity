@@ -16,7 +16,7 @@ class CostAddController{
         this.$state.go(this.$state.current, {}, { alerts: 'test' })
         if (isValid) {
             //    let Roles = this.API.service('case', this.API.all('cases'))
-            let Case =  this.API.all('casecost')
+            let Case = this.API.service('profile', this.API.all('costs'))
             let $state = this.$state
             Case.post({
                 'director': this.director,

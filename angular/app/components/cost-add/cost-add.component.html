@@ -61,6 +61,14 @@
                                 <p ng-show="caseForm.j_admin.$error.required && ( vm.formSubmitted || casesForm.j_admin.$touched)" class="help-block">Junior Admin is required.</p>
                             </div>
                         </div>
+                        <div class="form-group" ng-class="{ 'has-error': caseForm.active.$invalid && ( vm.formSubmitted || caseForm.active.$touched) }">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Active</label>
+                            <div class="col-sm-10">
+                                <input type="checkbox" ng-model="vm.task.data.active" name="active">
+                                 <p ng-show="caseForm.active.$error.required && ( vm.formSubmitted || caseForm.active.$touched)" class="help-block">Active is required</p>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="box-footer">
                         <a ui-sref="app.costlist" class="btn btn-default"><i class="fa fa-angle-double-left"></i> Back</a>

@@ -92,14 +92,28 @@ class SummaryfullListController{
                     .withBootstrap()
 
                 this.dtColumns3 = [
+                    DTColumnBuilder.newColumn(null).withTitle('Status').notSortable()
+                        .renderWith(actionsHtml2),
                     DTColumnBuilder.newColumn('narration').withTitle('Narration'),
                     DTColumnBuilder.newColumn('reminder_date').withTitle('Date'),
                     DTColumnBuilder.newColumn('director').withTitle('Director'),
+                    DTColumnBuilder.newColumn('director_c').withTitle('Director-Cost'),
+                    
                     DTColumnBuilder.newColumn('manager').withTitle('Manager'),
+                    DTColumnBuilder.newColumn('manager_c').withTitle('Manager-Cost'),
+                    
                     DTColumnBuilder.newColumn('s_admin').withTitle('S.Admin'),
+                    DTColumnBuilder.newColumn('s_admin_c').withTitle('Ss.Admin-Cost'),
+                    
                     DTColumnBuilder.newColumn('admin').withTitle('Admin'),
+                    DTColumnBuilder.newColumn('admin_c').withTitle('Admin-Cost'),
+                    
                     DTColumnBuilder.newColumn('asst_admin').withTitle('Asst Admin'),
+                    DTColumnBuilder.newColumn('asst_admin_c').withTitle('Asst.Admin-Cost'),
+                    
                     DTColumnBuilder.newColumn('j_admin').withTitle('Junior Admin'),
+                    DTColumnBuilder.newColumn('j_admin_c').withTitle('J.Admin-Cost'),
+                    
                     DTColumnBuilder.newColumn('cassification_id').withTitle('Classification'),
                     DTColumnBuilder.newColumn('justification').withTitle('Justification'),
                     
@@ -110,6 +124,22 @@ class SummaryfullListController{
             })
 
 
+        let actionsHtml2 = (data) => {
+         if (data.is_done==1)
+         {
+            return `
+              <a class="btn btn-xs btn-success">
+                    <i class="fa">Completed</i>
+                </a>`
+            
+         }else{
+            return `
+              <a class="btn btn-xs btn-danger">
+                    <i class="fa">Pending</i>
+                </a>`
+            
+         }
+        }
 
     }
 

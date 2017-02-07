@@ -38,7 +38,7 @@ $api->group(['middleware' => ['api', 'api.auth', 'role:admin.super|admin.user']]
     $api->controller('users', 'UserController');
 });
 
-$api->group(['middleware' => ['api']], function ($api) {
+$api->group(['middleware' => ['api', 'api.auth']], function ($api) {
     $api->controller('clients', 'ClientController');
     $api->controller('companies', 'CompanieController');
     $api->get('companyclients', 'CompanyclientController@getcompanyclient');
@@ -52,7 +52,7 @@ $api->group(['middleware' => ['api']], function ($api) {
 });
 //activitay
 
-$api->group(['middleware' => ['api']], function ($api) {
+$api->group(['middleware' => ['api', 'api.auth']], function ($api) {
     $api->get('taskp', 'ActivitylogController@gettaskp');
     $api->get('taskc', 'ActivitylogController@gettaskc');
     $api->get('taskpt', 'ActivitylogController@gettaskpt');
@@ -60,7 +60,9 @@ $api->group(['middleware' => ['api']], function ($api) {
   
     $api->controller('tasks', 'ActivitylogController');
     $api->controller('costs', 'CasecostController');
-     
+
+
+
 });
 
 

@@ -10,19 +10,26 @@ class CostEditController{
             this.alerts.push($stateParams.alerts)
         }
         let caseId = $stateParams.caseId
-        let CaseData =  API.service('case')
+
+
+        let CaseData = API.service('cost-show', API.all('costs'))
         CaseData.one(caseId).get()
             .then((response) => {
-                this.cases = API.copy(response)
+                this.cost = API.copy(response)
+                if(this.cost.data.active  == 1){
+                    this.cost.data.active = true;         
+                }else{
+                   this.cost.data.active = false;             
+                }
             })
     }
 
     save (isValid) {
         if (isValid) {
             let $state = this.$state
-            this.cases.put()
+            this.cost.put()
                 .then(() => {
-                    let alert = { type: 'success', 'title': 'Success!', msg: 'Case has been updated.' }
+                    let alert = { type: 'success', 'title': 'Success!', msg: 'Cost has been updated.' }
                     $state.go($state.current, { alerts: alert})
                 }, (response) => {
                     let alert = { type: 'error', 'title': 'Error!', msg: response.data.message }

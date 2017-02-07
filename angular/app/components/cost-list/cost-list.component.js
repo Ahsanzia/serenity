@@ -23,6 +23,8 @@ class CostListController{
                     DTColumnBuilder.newColumn('admin').withTitle('Admin'),
                     DTColumnBuilder.newColumn('asst_admin').withTitle('Asst.Admin'),
                     DTColumnBuilder.newColumn('j_admin').withTitle('Junior Admin'),
+                    DTColumnBuilder.newColumn(null).withTitle('Active').notSortable()
+                        .renderWith(actionsHtml2),
                     
                     DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
                         .renderWith(actionsHtml)
@@ -33,6 +35,23 @@ class CostListController{
 
         let createdRow = (row) => {
             $compile(angular.element(row).contents())($scope)
+        }
+
+        let actionsHtml2 = (data) => {
+         if (data.active==1)
+         {
+            return `
+              <a class="btn btn-xs btn-success">
+                    <i class="fa">Active</i>
+                </a>`
+            
+         }else{
+            return `
+              <a class="btn btn-xs btn-danger">
+                    <i class="fa">Inactive</i>
+                </a>`
+            
+         }
         }
 
         let actionsHtml = (data) => {

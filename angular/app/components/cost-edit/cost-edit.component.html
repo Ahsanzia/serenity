@@ -1,9 +1,9 @@
 <section class="content-header">
-    <h1>Case<small>Edit Cost</small></h1>
+    <h1>Cost <small>Edit Cost</small></h1>
     <ol class="breadcrumb">
         <li><a ui-sref="app.landing"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a ui-sref="app.caselist">Cost Lists</a></li>
-        <li class="active">Cost Case</li>
+        <li><a ui-sref="app.costlist">Cost Lists</a></li>
+        <li class="active">Add Cost</li>
     </ol>
 </section>
 <section class="content">
@@ -11,32 +11,67 @@
         <div class="col-sm-12 col-md-7">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Edit Cost</h3>
+                    <h3 class="box-title">Add Cost</h3>
                 </div>
-                <form class="form-horizontal" name="caseForm" ng-submit="vm.save(caseForm.$valid)" novalidate>
+                <form class="form-horizontal" name="caseForm" ng-submit="vm.save(caseForm.$valid, caseForm)" novalidate>
                     <div class="box-body">
                         <div ng-if="vm.alerts" class="alert alert-{{alert.type}}" ng-repeat="alert in vm.alerts">
                             <h4>{{alert.title}}</h4>
                             <p>{{alert.msg}}</p>
                         </div>
-                        <div class="form-group" ng-class="{ 'has-error': roleForm.name.$invalid && ( vm.formSubmitted || caseForm.name.$touched) }">
-                            <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+                        <div class="form-group" ng-class="{ 'has-error': caseForm.director.$invalid && ( vm.formSubmitted || caseForm.name.$touched) }">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Director</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" ng-model="vm.cases.data.name" name="name" placeholder="Name" required>
-                                <p ng-show="roleForm.name.$error.required && ( vm.formSubmitted || caseForm.name.$touched)" class="help-block">Name is required.</p>
+                                <input type="text" class="form-control" ng-model="vm.cost.data.director" name="director" placeholder="Director" required>
+                                <p ng-show="caseForm.director.$error.required && ( vm.formSubmitted || caseForm.director.$touched)" class="help-block">Director Cost is required</p>
                             </div>
                         </div>
-                        <div class="form-group" ng-class="{ 'has-error': caseForm.no.$invalid && ( vm.formSubmitted || roleForm.no.$touched) }">
-                            <label for="inputPassword3" class="col-sm-2 control-label">No</label>
+                        <div class="form-group" ng-class="{ 'has-error': caseForm.manager.$invalid && ( vm.formSubmitted || caseForm.manager.$touched) }">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Manager</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" ng-model="vm.cases.data.no" name="no" placeholder="Number" required>
-                                <p ng-show="caseForm.no.$error.required && ( vm.formSubmitted || caseForm.slug.$touched)" class="help-block">Number is required.</p>
+                                <input type="text" class="form-control" ng-model="vm.cost.data.manager" name="manager" placeholder="Manager" required>
+                                <p ng-show="caseForm.manager.$error.required && ( vm.formSubmitted || caseForm.manager.$touched)" class="help-block">Manager is required</p>
                             </div>
                         </div>
-                
+                        <div class="form-group" ng-class="{ 'has-error': caseForm.s_admin.$invalid && ( vm.formSubmitted || caseForm.s_admin.$touched) }">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Senior Admin</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="vm.cost.data.s_admin" name="s_admin" placeholder="Senior Admin" required>
+                                <p ng-show="caseForm.s_admin.$error.required && ( vm.formSubmitted || caseForm.s_admin.$touched)" class="help-block">Senior Admin is required</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error': caseForm.admin.$invalid && ( vm.formSubmitted || caseForm.admin.$touched) }">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Admin</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="vm.cost.data.admin" name="admin" placeholder="Admin" required>
+                                <p ng-show="caseForm.admin.$error.required && ( vm.formSubmitted || caseForm.admin.$touched)" class="help-block">Admin is required</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error': caseForm.asst_admin.$invalid && ( vm.formSubmitted || caseForm.asst_admin.$touched) }">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Assistant Admin</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="vm.cost.data.asst_admin" name="asst_admin" placeholder="Assistant Admin" required>
+                                <p ng-show="caseForm.asst_admin.$error.required && ( vm.formSubmitted || casesForm.asst_admin.$touched)" class="help-block">Assistant Admin is required.</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error': caseForm.j_admin.$invalid && ( vm.formSubmitted || caseForm.j_admin.$touched) }">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Junior Admin</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="vm.cost.data.j_admin" name="j_admin" placeholder="Junior Admin" required>
+                                <p ng-show="caseForm.j_admin.$error.required && ( vm.formSubmitted || casesForm.j_admin.$touched)" class="help-block">Junior Admin is required.</p>
+                            </div>
+                        </div>
+                         <div class="form-group" ng-class="{ 'has-error': caseForm.active.$invalid && ( vm.formSubmitted || caseForm.active.$touched) }">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Active</label>
+                            <div class="col-sm-10">
+                                <input type="checkbox" ng-model="vm.cost.data.active" name="active">
+                                 <p ng-show="caseForm.active.$error.required && ( vm.formSubmitted || caseForm.active.$touched)" class="help-block">Active is required</p>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="box-footer">
-                        <a ui-sref="app.caselist" class="btn btn-default"><i class="fa fa-angle-double-left"></i> Back</a>
+                        <a ui-sref="app.costlist" class="btn btn-default"><i class="fa fa-angle-double-left"></i> Back</a>
                         <button type="submit" class="btn btn-primary pull-right">Update</button>
                     </div>
                 </form>

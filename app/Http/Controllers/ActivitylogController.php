@@ -9,6 +9,7 @@ use Hash;
 use Input;
 use Validator;
 use App\activitylog;
+use App\Casecost;
 
 class ActivitylogController extends Controller
 {
@@ -47,8 +48,7 @@ class ActivitylogController extends Controller
         );
 
         $clientid = intval($clientForm['data.id']);
-     
-
+        $latestcost = Casecost::where('active', '=', 1)->take(1)->get();
         $cientdata = [
             'director' => $clientForm['data.director'],
             'manager' => $clientForm['data.manager'],
@@ -60,14 +60,12 @@ class ActivitylogController extends Controller
             'justification' => $clientForm['data.justification'],
             'cassification_id' => $clientForm['data.cassification_id'],
             'is_done' => $clientForm['data.is_done'],
-     
-
-            'director_c' => "1",
-            'manager_c' => "1",
-            's_admin_c' => "1",
-            'admin_c' => "1",
-            'asst_admin_c' => "1",
-            'j_admin_c' => "1"
+            'director_c' => $latestcost[0]->director,
+            'manager_c' => $latestcost[0]->manager,
+            's_admin_c' => $latestcost[0]->s_admin,
+            'admin_c' => $latestcost[0]->admin,
+            'asst_admin_c' =>$latestcost[0]->asst_admin,
+            'j_admin_c' => $latestcost[0]->j_admin
      
         ];
         $affectedRows = activitylog::where('id', '=', $clientid)->update($cientdata);
@@ -134,7 +132,8 @@ class ActivitylogController extends Controller
                $companyid = $request->input('id');
 
          $summaryfull = activitylog::where([
-                ['companiesid', '=', $companyid]
+                ['companiesid', '=', $companyid],
+                ['is_done', '=', 1]
             ])->groupBy('cassification_id')
    ->selectRaw('cassification_id , SUM(director) as director,SUM(manager) as manager
     ,SUM(s_admin) as s_admin
@@ -155,7 +154,8 @@ class ActivitylogController extends Controller
                $companyid = $request->input('id');
 
          $summaryfulltotal = activitylog::where([
-                ['companiesid', '=', $companyid]
+                ['companiesid', '=', $companyid],
+                ['is_done', '=', 1]
             ])->selectRaw('"Total" AS total,SUM(director) as director,SUM(manager) as manager
     ,SUM(s_admin) as s_admin
     ,SUM(admin) as admin

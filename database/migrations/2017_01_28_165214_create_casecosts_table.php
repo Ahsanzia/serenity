@@ -22,6 +22,7 @@ class CreateCasecostsTable extends Migration
             $table->integer('asst_admin');
             $table->integer('j_admin');
             $table->integer('userid');
+            $table->string('active');
             $table->timestamps();
         });
     }
