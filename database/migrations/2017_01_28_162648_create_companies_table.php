@@ -16,7 +16,7 @@ class CreateCompaniesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('regno');
-            $table->integer('casetype');
+            $table->string('casetype');
             $table->date('appdate');
             $table->integer('userid');
             $table->timestamps();
