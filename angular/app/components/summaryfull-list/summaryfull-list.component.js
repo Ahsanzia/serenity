@@ -32,7 +32,7 @@ class SummaryfullListController{
                     DTColumnBuilder.newColumn('j_admin').withTitle('Junior Admin'),
                     DTColumnBuilder.newColumn('totalval').withTitle('Total Hours'),
                     DTColumnBuilder.newColumn('totalcost').withTitle('Time Cost'),
-                    DTColumnBuilder.newColumn('avgcost').withTitle('Avg Cost / Hours'),
+                    DTColumnBuilder.newColumn('avgcost').withTitle('Avg Cost / Hours')
              
              
 
@@ -70,7 +70,7 @@ class SummaryfullListController{
                     DTColumnBuilder.newColumn('j_admin').withTitle('Junior Admin'),
                     DTColumnBuilder.newColumn('totalval').withTitle('Total Hours'),
                     DTColumnBuilder.newColumn('totalcost').withTitle('Time Cost'),
-                    DTColumnBuilder.newColumn('avgcost').withTitle('Avg Cost / Hours'), 
+                    DTColumnBuilder.newColumn('avgcost').withTitle('Avg Cost / Hours')
                 ]
 
                 this.displayTable2 = true
@@ -115,7 +115,7 @@ class SummaryfullListController{
                     DTColumnBuilder.newColumn('j_admin_c').withTitle('J.Admin-Cost'),
                     
                     DTColumnBuilder.newColumn('cassification_id').withTitle('Classification'),
-                    DTColumnBuilder.newColumn('justification').withTitle('Justification'),
+                    DTColumnBuilder.newColumn('justification').withTitle('Justification')
                     
                        
                 ]

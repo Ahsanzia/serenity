@@ -41,7 +41,6 @@ class PendingCompleteController{
         //  let clients = API.service('client', API.all('companyclients'))
         //  let Roles = this.API.service('clients', this.API.all('companyclients'))
 
-        var qParams = [];
         qParams['id'] = $stateParams.companyId
         taskc.getList(qParams)
             .then((response) => {

@@ -109,9 +109,7 @@ class CompanieAddController{
                 'name': this.name,
                 'regno': this.regno,
                 'casetype': this.casetype,
-                'appdate': this.appdate,
-
-
+                'appdate': this.appdate
             }).then(function () {
                 let alert = { type: 'success', 'title': 'Success!', msg: 'Client has been added.' }
                 $state.go($state.current, { alerts: alert})
