@@ -1,17 +1,19 @@
-class TaskAddController{
-    constructor ($scope,API, $state, $stateParams) {
+class CaseAddController{
+ constructor ($scope,API, $state, $stateParams) {
         'ngInject'
 
         this.$state = $state
         this.formSubmitted = false
         this.API = API
         this.alerts = []
-        this.$stateParams=$stateParams
+
         if ($stateParams.alerts) {
             this.alerts.push($stateParams.alerts)
         }
-/////////////77
-this.caseid = this.$stateParams.companyId
+
+
+
+        /////////////77
    $scope.today = function() {
     $scope.dt = new Date();
   };
@@ -101,14 +103,15 @@ this.caseid = this.$stateParams.companyId
     save (isValid) {
         this.$state.go(this.$state.current, {}, { alerts: 'test' })
         if (isValid) {
-            let clients = this.API.service('profile', this.API.all('tasks'))
+            let clients = this.API.service('profile', this.API.all('companies'))
             let $state = this.$state
             clients.post({
-                'narration': this.narration,
-                'reminder_date': this.reminder_date,
-                'companiesid': this.$stateParams.companyId
+                'name': this.name,
+                'regno': this.regno,
+                'casetype': this.casetype,
+                'appdate': this.appdate
             }).then(function () {
-                let alert = { type: 'success', 'title': 'Success!', msg: 'Task has been added.' }
+                let alert = { type: 'success', 'title': 'Success!', msg: 'Client has been added.' }
                 $state.go($state.current, { alerts: alert})
             }, function (response) {
                 let alert = { type: 'error', 'title': 'Error!', msg: response.data.message }
@@ -122,9 +125,9 @@ this.caseid = this.$stateParams.companyId
     $onInit () {}
 }
 
-export const TaskAddComponent = {
-    templateUrl: './views/app/components/task-add/task-add.component.html',
-    controller: TaskAddController,
+export const CaseAddComponent = {
+    templateUrl: './views/app/components/case-add/case-add.component.html',
+    controller: CaseAddController,
     controllerAs: 'vm',
     bindings: {}
 }

@@ -52,7 +52,7 @@ $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
 });
 //activitay
 
-$api->group(['middleware' => ['api', 'api.auth']], function ($api) {
+$api->group(['middleware' => ['api']], function ($api) {
     $api->get('taskp', 'ActivitylogController@gettaskp');
     $api->get('taskc', 'ActivitylogController@gettaskc');
     $api->get('taskpt', 'ActivitylogController@gettaskpt');

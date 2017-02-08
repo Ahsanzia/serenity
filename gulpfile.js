@@ -21,6 +21,8 @@ if (!elixir.config.production) {
  |
  */
 
+// Always minify & compress
+//elixir.config.production = true;
 elixir(function (mix) {
   var jsOutputFolder = config.js.outputFolder
   var cssOutputFolder = config.css.outputFolder

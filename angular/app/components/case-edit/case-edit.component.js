@@ -1,18 +1,27 @@
-class TaskAddController{
-    constructor ($scope,API, $state, $stateParams) {
+class CaseEditController{
+constructor ($scope,$stateParams, $state, API) {
         'ngInject'
 
         this.$state = $state
         this.formSubmitted = false
-        this.API = API
         this.alerts = []
-        this.$stateParams=$stateParams
+
         if ($stateParams.alerts) {
             this.alerts.push($stateParams.alerts)
         }
-/////////////77
-this.caseid = this.$stateParams.companyId
-   $scope.today = function() {
+
+        let clientId = $stateParams.companyId
+
+
+        let company = API.service('company-show', API.all('companies'))
+        company.one(clientId).get()
+            .then((response) => {
+                this.company = API.copy(response)
+                this.company.data.appdate =  new Date(this.company.data.appdate)
+
+            })
+
+  $scope.today = function() {
     $scope.dt = new Date();
   };
   $scope.today();
@@ -96,24 +105,21 @@ this.caseid = this.$stateParams.companyId
 
     return '';
   }
+
     }
 
+
     save (isValid) {
-        this.$state.go(this.$state.current, {}, { alerts: 'test' })
         if (isValid) {
-            let clients = this.API.service('profile', this.API.all('tasks'))
             let $state = this.$state
-            clients.post({
-                'narration': this.narration,
-                'reminder_date': this.reminder_date,
-                'companiesid': this.$stateParams.companyId
-            }).then(function () {
-                let alert = { type: 'success', 'title': 'Success!', msg: 'Task has been added.' }
-                $state.go($state.current, { alerts: alert})
-            }, function (response) {
-                let alert = { type: 'error', 'title': 'Error!', msg: response.data.message }
-                $state.go($state.current, { alerts: alert})
-            })
+            this.company.put()
+                .then(() => {
+                    let alert = { type: 'success', 'title': 'Success!', msg: 'Client has been updated.' }
+                    $state.go($state.current, { alerts: alert})
+                }, (response) => {
+                    let alert = { type: 'error', 'title': 'Error!', msg: response.data.message }
+                    $state.go($state.current, { alerts: alert})
+                })
         } else {
             this.formSubmitted = true
         }
@@ -122,9 +128,9 @@ this.caseid = this.$stateParams.companyId
     $onInit () {}
 }
 
-export const TaskAddComponent = {
-    templateUrl: './views/app/components/task-add/task-add.component.html',
-    controller: TaskAddController,
+export const CaseEditComponent = {
+    templateUrl: './views/app/components/case-edit/case-edit.component.html',
+    controller: CaseEditController,
     controllerAs: 'vm',
     bindings: {}
 }

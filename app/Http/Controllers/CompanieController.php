@@ -15,9 +15,16 @@ class CompanieController extends Controller
 {
     //
 
-    public function getIndex()
+    public function getIndex(Request $request)
     {
-        $companies = Companie::all();
+
+         $c_type = $request->input('c_type');
+        if($c_type == "1"){
+        $companies = Companie::where('casetype', 'CVL')->orWhere('casetype', 'MVL')->orWhere('casetype', 'CVA')->orWhere('casetype', 'CWU')->get();
+        }else{
+            $companies = Companie::where('casetype', 'IVA')->orWhere('casetype', 'BKY')->get();
+        }
+        
 
         return response()->success(compact('companies'));
     }

@@ -20,6 +20,8 @@ class PendingCompleteController{
                     .withOption('responsive', true)
                     .withBootstrap()
                 this.dtColumns = [
+                    DTColumnBuilder.newColumn(null).withTitle('Status').notSortable()
+                        .renderWith(actionsHtml1),
                     DTColumnBuilder.newColumn('narration').withTitle('Narration'),
                     DTColumnBuilder.newColumn('reminder_date').withTitle('Reminder Date'),
                     DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
@@ -51,6 +53,9 @@ class PendingCompleteController{
                     .withOption('responsive', true)
                     .withBootstrap()
                 this.dtColumns2 = [
+                    DTColumnBuilder.newColumn(null).withTitle('Status').notSortable()
+                        .renderWith(actionsHtml3),
+             
                     DTColumnBuilder.newColumn('narration').withTitle('Narration'),
                     DTColumnBuilder.newColumn('reminder_date').withTitle('Reminder Date'),
        DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
@@ -63,13 +68,25 @@ class PendingCompleteController{
 
 
         
-
+        let actionsHtml3 = (data) => {
+            return `
+              <a class="btn btn-xs btn-success">
+                    <i class="fa">Completed</i>
+                </a>`
+            
+        }
+        let actionsHtml1 = (data) => {
+            return `
+              <a class="btn btn-xs btn-danger">
+                    <i class="fa">Pending</i>
+                </a>`
+        }
          let createdRow = (row) => {
             $compile(angular.element(row).contents())($scope)
         }
         let actionsHtml = (data) => {
             return `
-               <a class="btn btn-xs btn-success" ui-sref="app.taskedit({clientId: ${data.id}})">
+               <a class="btn btn-xs btn-warning" ui-sref="app.taskedit({clientId: ${data.id}})">
                     <i class="fa">Edit Task</i>
                 </a>`
         }

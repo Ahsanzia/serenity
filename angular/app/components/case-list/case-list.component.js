@@ -1,13 +1,16 @@
-class CompanieListController{
-    constructor ($scope, $state, $compile, DTOptionsBuilder, DTColumnBuilder, API) {
+class CaseListController{
+     constructor ($scope, $state, $compile, DTOptionsBuilder, DTColumnBuilder, API) {
         'ngInject'
         this.API = API
         this.$state = $state
 
         let clients = this.API.service('companies')
-
+        
+        
+        
         var qParams = [];
-        qParams['c_type'] = 1
+        qParams['c_type'] = 2
+        
         clients.getList(qParams)
             .then((response) => {
                 let dataSet = response.plain()
@@ -19,8 +22,8 @@ class CompanieListController{
                     .withBootstrap()
 
                 this.dtColumns = [
-                    DTColumnBuilder.newColumn('name').withTitle('Company Name'),
-                    DTColumnBuilder.newColumn('regno').withTitle('Registration-No'),
+                    DTColumnBuilder.newColumn('name').withTitle('Name'),
+                    DTColumnBuilder.newColumn('regno').withTitle('Reference'),
                     DTColumnBuilder.newColumn('casetype').withTitle('Case Type'),
                     DTColumnBuilder.newColumn('appdate').withTitle('Appointment Date'),
                     DTColumnBuilder.newColumn(null).withTitle('Add Task').notSortable()
@@ -51,12 +54,12 @@ class CompanieListController{
                     <i class="fa fa-edit"></i>Add Task</a>`
         }
         let detailsHtml = (data) => {
-            return `<a class="btn btn-xs btn-success" ui-sref="app.companydetails({companyId: ${data.id}})">
+            return `<a class="btn btn-xs btn-success" ui-sref="app.casedetails({companyId: ${data.id}})">
                     <i class="fa fa-edit">View/Add Details</i></a>`
         }
         let actionsHtml = (data) => {
             return `
-                <a class="btn btn-xs btn-warning" ui-sref="app.companyedit({companyId: ${data.id}})">
+                <a class="btn btn-xs btn-warning" ui-sref="app.caseedit({companyId: ${data.id}})">
                     <i class="fa fa-edit"></i>
                 </a>
                 &nbsp
@@ -97,11 +100,12 @@ class CompanieListController{
     }
 
     $onInit () {}
+
 }
 
-export const CompanieListComponent = {
-    templateUrl: './views/app/components/companie-list/companie-list.component.html',
-    controller: CompanieListController,
+export const CaseListComponent = {
+    templateUrl: './views/app/components/case-list/case-list.component.html',
+    controller: CaseListController,
     controllerAs: 'vm',
     bindings: {}
 }

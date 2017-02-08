@@ -1,3 +1,9 @@
+import {PersonAddComponent} from './app/components/person-add/person-add.component';
+import {PersonListComponent} from './app/components/person-list/person-list.component';
+import {CaseDetailComponent} from './app/components/case-detail/case-detail.component';
+import {CaseEditComponent} from './app/components/case-edit/case-edit.component';
+import {CaseAddComponent} from './app/components/case-add/case-add.component';
+import {CaseListComponent} from './app/components/case-list/case-list.component';
 import {TotalcaseListComponent} from './app/components/totalcase-list/totalcase-list.component';
 import {TodayListComponent} from './app/components/today-list/today-list.component';
 import {SummaryfullListComponent} from './app/components/summaryfull-list/summaryfull-list.component';
@@ -51,6 +57,12 @@ import { LoginFormComponent } from './app/components/login-form/login-form.compo
 import { RegisterFormComponent } from './app/components/register-form/register-form.component'
 
 angular.module('app.components')
+	.component('personAdd', PersonAddComponent)
+	.component('personList', PersonListComponent)
+	.component('caseDetail', CaseDetailComponent)
+	.component('caseEdit', CaseEditComponent)
+	.component('caseAdd', CaseAddComponent)
+	.component('caseList', CaseListComponent)
 	.component('totalcaseList', TotalcaseListComponent)
 	.component('todayList', TodayListComponent)
 	.component('summaryfullList', SummaryfullListComponent)

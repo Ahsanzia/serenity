@@ -227,6 +227,43 @@ export function RoutesConfig ($stateProvider, $urlRouterProvider) {
           alerts: null,
           companyId: null
       }
+  }).state('app.caselist', {
+      url: '/case-lists',
+      data: {
+          auth: true
+      },
+      views: {
+          'main@app': {
+              template: '<case-list></case-list>'
+          }
+      }
+  }).state('app.caseadd', {
+      url: '/case-add',
+      data: {
+          auth: true
+      },
+      views: {
+          'main@app': {
+              template: '<case-add></case-add>'
+          }
+      },
+      params: {
+          alerts: null
+      }
+  }).state('app.caseedit', {
+      url: '/case-edit/:companyId',
+      data: {
+          auth: true
+      },
+      views: {
+          'main@app': {
+              template: '<case-edit></case-edit>'
+          }
+      },
+      params: {
+          alerts: null,
+          companyId: null
+      }
   }).state('app.companydetails', {
       url: '/company-detail/:companyId',
       data: {
@@ -241,7 +278,22 @@ export function RoutesConfig ($stateProvider, $urlRouterProvider) {
           alerts: null,
           companyId: null
       }
-  }).state('app.directoradd', {
+  }).state('app.casedetails', {
+      url: '/case-detail/:companyId',
+      data: {
+          auth: true
+      },
+      views: {
+          'main@app': {
+              template: '<case-detail></case-detail><person-list></person-list><pending-complete></pending-complete>'
+          }
+      },
+      params: {
+          alerts: null,
+          companyId: null
+      }
+  })
+  .state('app.directoradd', {
       url: '/director-add/:companyId',
       data: {
           auth: true

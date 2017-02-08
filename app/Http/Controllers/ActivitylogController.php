@@ -109,19 +109,20 @@ class ActivitylogController extends Controller
  public function getTaskpt()
     {
 
-        $taskpt = activitylog::where([
+        $taskpt = activitylog::join('companies', 'companies.id', '=', 'activitylogs.companiesid')->where([
           ['is_done', '=', 0],
           ['reminder_date', '<=', date('Y-m-d')],
-      ])->get();
+      ])->select('activitylogs.*','companies.name')->get();
+
       return response()->success(compact('taskpt'));
     }
     public function getTaskct()
     {
 
-        $taskct = activitylog::where([
-            ['is_done', '=', 1],
-          ['reminder_date', '=', date('Y-m-d')],
-        ])->get();
+        $taskct = activitylog::join('companies', 'companies.id', '=', 'activitylogs.companiesid')->where([
+          ['is_done', '=', 1],
+          ['reminder_date', '<=', date('Y-m-d')],
+      ])->select('activitylogs.*','companies.name')->get();
         return response()->success(compact('taskct'));
     }
 

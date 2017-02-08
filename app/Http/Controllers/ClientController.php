@@ -13,8 +13,9 @@ use Validator;
 class ClientController extends Controller
 {
 
-    public function getIndex()
+    public function getIndex(Request $request)
     {
+      
         $clients = Client::all();
 
         return response()->success(compact('clients'));
