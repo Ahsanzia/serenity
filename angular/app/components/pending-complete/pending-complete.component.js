@@ -68,14 +68,14 @@ class PendingCompleteController{
 
 
         
-        let actionsHtml3 = (data) => {
+        let actionsHtml3 = () => {
             return `
               <a class="btn btn-xs btn-success">
                     <i class="fa">Completed</i>
                 </a>`
             
         }
-        let actionsHtml1 = (data) => {
+        let actionsHtml1 = () => {
             return `
               <a class="btn btn-xs btn-danger">
                     <i class="fa">Pending</i>
