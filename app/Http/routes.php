@@ -44,25 +44,13 @@ $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
     $api->get('companyclients', 'CompanyclientController@getcompanyclient');
     $api->get('clientcompnies', 'CompanyclientController@getclientcompanies');
     $api->delete('deleteCompanyclient/{id}', 'CompanyclientController@deleteCompanyclient');
-   
-   
-
-
-
 });
-//activitay
 
 $api->group(['middleware' => ['api']], function ($api) {
     $api->get('taskp', 'ActivitylogController@gettaskp');
     $api->get('taskc', 'ActivitylogController@gettaskc');
     $api->get('taskpt', 'ActivitylogController@gettaskpt');
     $api->get('taskct', 'ActivitylogController@gettaskct');
-  
     $api->controller('tasks', 'ActivitylogController');
     $api->controller('costs', 'CasecostController');
-
-
-
 });
-
-
