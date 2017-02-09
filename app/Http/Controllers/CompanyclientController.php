@@ -12,7 +12,6 @@ class CompanyclientController extends Controller
 {
     public function getcompanyclient(Request $request)
     {
-
         $id = $request->input('id');
         $type = $request->input('type');
         $companyclients = Companyclient::join('clients', 'clients.id', '=', 'companyclients.clientid')
@@ -22,9 +21,9 @@ class CompanyclientController extends Controller
             ])->select('companyclients.id as id','clients.fname','clients.lname') ->get();
         return response()->success(compact('companyclients'));
     }
-
     public function getclientcompanies(Request $request)
-    {    $id = $request->input('id');
+    {
+        $id = $request->input('id');
         $clientcompnies = Companyclient::join('companies', 'companies.id', '=', 'companyclients.companyid')->where('companyclients.clientid', '=', $id)->get();
         return response()->success(compact('clientcompnies'));
     }
