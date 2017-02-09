@@ -17,7 +17,6 @@ class ClientController extends Controller
     {
       
         $clients = Client::all();
-
         return response()->success(compact('clients'));
     }
 
@@ -89,6 +88,4 @@ class ClientController extends Controller
 
         return response()->success('success');
     }
-
-
 }
