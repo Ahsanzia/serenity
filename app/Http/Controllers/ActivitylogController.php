@@ -13,8 +13,6 @@ use App\Casecost;
 
 class ActivitylogController extends Controller
 {
-
-
     public function postProfile()
     {
         $client = activitylog::create([
@@ -29,7 +27,6 @@ class ActivitylogController extends Controller
     }
     public function putTaskShow(Request $request)
     {
-
           $clientForm = array_dot(
             app('request')->only(
                 'data.director',
@@ -42,11 +39,9 @@ class ActivitylogController extends Controller
                 'data.justification',
                 'data.is_done',
                 'data.cassification_id',
-                'data.id'
-                
+                'data.id'           
             )
         );
-
         $clientid = intval($clientForm['data.id']);
         $latestcost = Casecost::where('active', '=', 1)->take(1)->get();
         $cientdata = [
@@ -66,7 +61,6 @@ class ActivitylogController extends Controller
             'admin_c' => $latestcost[0]->admin,
             'asst_admin_c' =>$latestcost[0]->asst_admin,
             'j_admin_c' => $latestcost[0]->j_admin
-     
         ];
         $affectedRows = activitylog::where('id', '=', $clientid)->update($cientdata);
         return response()->success('success');
@@ -75,7 +69,6 @@ class ActivitylogController extends Controller
     {
         $id = $request->input('id');
         $company = activitylog::where('companiesid', '=', $id)->get();
-
         return response()->success(compact('company'));
     }
     public function getTaskShow($id)
@@ -83,8 +76,6 @@ class ActivitylogController extends Controller
         $tasks = activitylog::find($id);
         return response()->success($tasks);
     }
-
-
     public function getTaskp(Request $request)
     {
 
@@ -97,7 +88,6 @@ class ActivitylogController extends Controller
     }
     public function getTaskc(Request $request)
     {
-
         $companyid = $request->input('id');
         $taskc = activitylog::where([
             ['companiesid', 'like', $companyid],
@@ -105,38 +95,29 @@ class ActivitylogController extends Controller
         ])->get();
         return response()->success(compact('taskc'));
     }
-
- public function getTaskpt()
+    public function getTaskpt()
     {
-
         $taskpt = activitylog::join('companies', 'companies.id', '=', 'activitylogs.companiesid')->where([
           ['is_done', '=', 0],
           ['reminder_date', '<=', date('Y-m-d')],
       ])->select('activitylogs.*','companies.name')->get();
-
       return response()->success(compact('taskpt'));
     }
     public function getTaskct()
     {
-
         $taskct = activitylog::join('companies', 'companies.id', '=', 'activitylogs.companiesid')->where([
           ['is_done', '=', 1],
           ['reminder_date', '<=', date('Y-m-d')],
       ])->select('activitylogs.*','companies.name')->get();
         return response()->success(compact('taskct'));
     }
-
-
     public function getSummaryfull(Request $request)
     {
-
-               $companyid = $request->input('id');
-
-         $summaryfull = activitylog::where([
+        $companyid = $request->input('id');
+        $summaryfull = activitylog::where([
                 ['companiesid', '=', $companyid],
                 ['is_done', '=', 1]
-            ])->groupBy('cassification_id')
-   ->selectRaw('cassification_id , SUM(director) as director,SUM(manager) as manager
+            ])->groupBy('cassification_id')->selectRaw('cassification_id , SUM(director) as director,SUM(manager) as manager
     ,SUM(s_admin) as s_admin
     ,SUM(admin) as admin
     ,SUM(asst_admin) as asst_admin
@@ -146,15 +127,12 @@ class ActivitylogController extends Controller
     , (((director*director_c)+(manager * manager_c)+(s_admin * s_admin_c)+(admin * admin_c)+(asst_admin * asst_admin_c)+(j_admin*j_admin_c)) /  (director+manager+s_admin+admin+asst_admin+j_admin)) as avgcost
     ')
    ->get();
-                    return response()->success(compact('summaryfull'));
+    return response()->success(compact('summaryfull'));
     }
-
-   public function getSummaryfulltotal(Request $request)
+    public function getSummaryfulltotal(Request $request)
     {
-
-               $companyid = $request->input('id');
-
-         $summaryfulltotal = activitylog::where([
+        $companyid = $request->input('id');
+        $summaryfulltotal = activitylog::where([
                 ['companiesid', '=', $companyid],
                 ['is_done', '=', 1]
             ])->selectRaw('"Total" AS total,SUM(director) as director,SUM(manager) as manager
@@ -167,7 +145,6 @@ class ActivitylogController extends Controller
     ,(SUM(((director*director_c)+(manager * manager_c)+(s_admin * s_admin_c)+(admin * admin_c)+(asst_admin * asst_admin_c)+(j_admin*j_admin_c)) /  (director+manager+s_admin+admin+asst_admin+j_admin))/4) as avgcost
     ')
    ->get();
-                    return response()->success(compact('summaryfulltotal'));
+    return response()->success(compact('summaryfulltotal'));
     }
-
 }
