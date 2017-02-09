@@ -122,6 +122,4 @@ class CasecostController extends Controller
 
         return response()->success('success');
     }
-
-**/
 }
