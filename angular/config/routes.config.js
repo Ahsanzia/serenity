@@ -190,6 +190,92 @@ export function RoutesConfig ($stateProvider, $urlRouterProvider) {
           alerts: null,
           clientId: null
       }
+  }) .state('app.tctlist', {
+      url: '/tct-lists/:caseId',
+      data: {
+          auth: true
+      },
+      views: {
+          'main@app': {
+              template: '<tct-list></tct-list>'
+          }
+      },
+      params: {
+          alerts: null,
+          caseId: null
+      }
+    })
+
+  .state('app.tclist', {
+      url: '/tc-lists/:type',
+      data: {
+          auth: true
+      },
+      views: {
+          'main@app': {
+              template: '<tc-list></tc-list>'
+          }
+      },
+      params: {
+          alerts: null,
+          type: null
+      }
+    }).state('app.disblist', {
+      url: '/disb-lists/:type',
+      data: {
+          auth: true
+      },
+      views: {
+          'main@app': {
+              template: '<disb-list></disb-list>'
+          }
+      },
+      params: {
+          alerts: null,
+          type: null
+      }
+    }).state('app.disbtlist', {
+      url: '/disbt-lists/:caseId',
+      data: {
+          auth: true
+      },
+      views: {
+          'main@app': {
+              template: '<disbtotal-list></disbtotal-list>'
+          }
+      },
+      params: {
+          alerts: null,
+          caseId: null
+      }
+    }).state('app.disbadd', {
+      url: '/disb-add/:caseId',
+      data: {
+          auth: true
+      },
+      views: {
+          'main@app': {
+              template: '<disb-add></disb-add>'
+          }
+      },
+      params: {
+          alerts: null,
+          caseId: null
+      }
+  }).state('app.disbedit', {
+      url: '/disb-edit/:caseId',
+      data: {
+          auth: true
+      },
+      views: {
+          'main@app': {
+              template: '<disb-edit></disb-edit>'
+          }
+      },
+      params: {
+          alerts: null,
+          caseId: null
+      }
   }).state('app.companylist', {
       url: '/company-lists',
       data: {

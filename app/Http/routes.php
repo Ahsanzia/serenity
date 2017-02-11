@@ -54,3 +54,12 @@ $api->group(['middleware' => ['api']], function ($api) {
     $api->controller('tasks', 'ActivitylogController');
     $api->controller('costs', 'CasecostController');
 });
+
+
+$api->group(['middleware' => ['api']], function ($api) {
+    $api->controller('disbs', 'disbController');
+    $api->controller('tcs', 'tscController');
+
+
+});
+

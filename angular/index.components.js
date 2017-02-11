@@ -1,3 +1,11 @@
+import {TctListComponent} from './app/components/tct-list/tct-list.component';
+import {TcsComponent} from './app/components/tcs/tcs.component';
+import {TcListComponent} from './app/components/tc-list/tc-list.component';
+import {TclistComponent} from './app/components/tclist/tclist.component';
+import {DisbEditComponent} from './app/components/disb-edit/disb-edit.component';
+import {DisbAddComponent} from './app/components/disb-add/disb-add.component';
+import {DisbtotalListComponent} from './app/components/disbtotal-list/disbtotal-list.component';
+import {DisbListComponent} from './app/components/disb-list/disb-list.component';
 import {PersonAddComponent} from './app/components/person-add/person-add.component';
 import {PersonListComponent} from './app/components/person-list/person-list.component';
 import {CaseDetailComponent} from './app/components/case-detail/case-detail.component';
@@ -57,6 +65,14 @@ import { LoginFormComponent } from './app/components/login-form/login-form.compo
 import { RegisterFormComponent } from './app/components/register-form/register-form.component'
 
 angular.module('app.components')
+	.component('tctList', TctListComponent)
+	.component('tcs', TcsComponent)
+	.component('tcList', TcListComponent)
+	.component('tclist', TclistComponent)
+	.component('disbEdit', DisbEditComponent)
+	.component('disbAdd', DisbAddComponent)
+	.component('disbtotalList', DisbtotalListComponent)
+	.component('disbList', DisbListComponent)
 	.component('personAdd', PersonAddComponent)
 	.component('personList', PersonListComponent)
 	.component('caseDetail', CaseDetailComponent)

@@ -39,11 +39,21 @@ class ActivitylogController extends Controller
                 'data.justification',
                 'data.is_done',
                 'data.cassification_id',
+                'data.cbilled',
+                'data.capproved',
                 'data.id'           
             )
         );
         $clientid = intval($clientForm['data.id']);
         $latestcost = Casecost::where('active', '=', 1)->take(1)->get();
+        if ($latestcost === null) {
+                $latestcost[0]->director=1;
+                $latestcost[0]->manager=1;
+                $latestcost[0]->s_admin=1;
+                $latestcost[0]->admin=1;
+                $latestcost[0]->asst_admin=1;
+                $latestcost[0]->j_admin=1;
+        } 
         $cientdata = [
             'director' => $clientForm['data.director'],
             'manager' => $clientForm['data.manager'],
@@ -55,6 +65,8 @@ class ActivitylogController extends Controller
             'justification' => $clientForm['data.justification'],
             'cassification_id' => $clientForm['data.cassification_id'],
             'is_done' => $clientForm['data.is_done'],
+            'capproved' => $clientForm['data.capproved'],
+            'cbilled' => $clientForm['data.cbilled'],
             'director_c' => $latestcost[0]->director,
             'manager_c' => $latestcost[0]->manager,
             's_admin_c' => $latestcost[0]->s_admin,

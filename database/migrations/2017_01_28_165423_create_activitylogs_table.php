@@ -38,6 +38,10 @@ class CreateActivitylogsTable extends Migration
             $table->string('notification');
             $table->string('is_done');
             $table->string('userid');
+            $table->integer('capproved');
+            $table->integer('cbilled');
+
+
             $table->timestamps();
         });
     }

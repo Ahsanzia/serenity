@@ -1,0 +1,66 @@
+<section class="content-header">
+    <h1>Add Disbursments<small>Add a new Disbursments</small></h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="app.landing"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a ui-sref="app.disblists">Disbursments List</a></li>
+        <li class="active">Add Disbursments</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-sm-12 col-md-7">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Add Disbursments</h3>
+                </div>
+                <form class="form-horizontal" name="roleForm" ng-submit="vm.save(roleForm.$valid, roleForm)" novalidate>
+                    <div class="box-body">
+                        <div ng-if="vm.alerts" class="alert alert-{{alert.type}}" ng-repeat="alert in vm.alerts">
+                            <h4>{{alert.title}}</h4>
+                            <p>{{alert.msg}}</p>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error': roleForm.de.$invalid && ( vm.formSubmitted || roleForm.ddetail.$touched) }">
+                            <label for="iznputEmail3" class="col-sm-2 control-label">Detail</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="vm.ddetail" name="name" placeholder="Detail" required>
+                                <p ng-show="roleForm.ddetail.$error.required && ( vm.formSubmitted || roleForm.ddetail.$touched)" class="help-block">Detail is required. </p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error': roleForm.tcost.$invalid && ( vm.formSubmitted || roleForm.tcost.$touched) }">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Cost</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="vm.tcost" name="name" placeholder="Cost" required>
+                                <p ng-show="roleForm.tcost.$error.required && ( vm.formSubmitted || roleForm.tcost.$touched)" class="help-block">Cost is required. </p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error': roleForm.billed.$invalid && ( vm.formSubmitted || roleForm.billed.$touched) }">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Billed</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="vm.billed" name="name" placeholder="Billed" required>
+                                <p ng-show="roleForm.billed.$error.required && ( vm.formSubmitted || roleForm.billed.$touched)" class="help-block">Billed is required. </p>
+                            </div>
+                        </div>
+                        
+                        
+
+                        <div class="form-group" ng-class="{ 'has-error': roleForm.ddate.$invalid && ( vm.formSubmitted || roleForm.ddate.$touched) }">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Date</label>
+                            <div class="col-sm-10">
+                               <p class="input-group">
+          <input type="text" name="ddate"  class="form-control" uib-datepicker-popup="{{format}}" ng-model="vm.ddate" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"  required />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <a ui-sref="app.caselist" class="btn btn-default"><i class="fa fa-angle-double-left"></i> Back</a>
+                            <button type="submit" class="btn btn-primary pull-right">Add New</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,16 +1,14 @@
-class CaseListController{
-     constructor ($scope, $state, $compile, DTOptionsBuilder, DTColumnBuilder, API) {
+class DisbtotalListController{
+  constructor ($stateParams,$scope, $state, $compile, DTOptionsBuilder, DTColumnBuilder, API) {
         'ngInject'
         this.API = API
         this.$state = $state
 
-        let clients = this.API.service('companies')
-        
-        
+        let clients = this.API.service('company', this.API.all('disbs'))
+               
         
         var qParams = [];
-        qParams['c_type'] = 2
-        
+        qParams['id'] = $stateParams.caseId
         clients.getList(qParams)
             .then((response) => {
                 let dataSet = response.plain()
@@ -22,18 +20,12 @@ class CaseListController{
                     .withBootstrap()
 
                 this.dtColumns = [
-                    DTColumnBuilder.newColumn('name').withTitle('Name'),
-                    DTColumnBuilder.newColumn('regno').withTitle('Reference'),
-                    DTColumnBuilder.newColumn('casetype').withTitle('Case Type'),
-                    DTColumnBuilder.newColumn('appdate').withTitle('Appointment Date'),
-                    DTColumnBuilder.newColumn(null).withTitle('Add Task').notSortable()
-                        .renderWith(taskHtml),    
-                    DTColumnBuilder.newColumn(null).withTitle('Add Details').notSortable()
-                    .renderWith(detailsHtml),
-                    DTColumnBuilder.newColumn(null).withTitle('Add Disbursments').notSortable()
-                    .renderWith(distHtml),
-                    DTColumnBuilder.newColumn(null).withTitle('TCA Summary').notSortable()
-                    .renderWith(tcaHtml),
+                    DTColumnBuilder.newColumn('ddetail').withTitle('Detail'),
+                    DTColumnBuilder.newColumn('ddate').withTitle('Date'),
+                    DTColumnBuilder.newColumn('tcost').withTitle('Total Disbursments'),
+                    DTColumnBuilder.newColumn('billed').withTitle('Billed'),
+                    DTColumnBuilder.newColumn(null).withTitle('Un Billed').notSortable()
+                        .renderWith(distHtml),
                     DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
                         .renderWith(actionsHtml)
                 ]
@@ -47,26 +39,13 @@ class CaseListController{
 
 
         let distHtml = (data) => {
-            return `<a class="btn btn-xs btn-purple" ui-sref="app.disbadd({caseId: ${data.id}})">
-                    <i class="fa fa-edit"></i>Disbursments</a>`
+            let dataunbilled = data.tcost*1-data.billed*1
+            return dataunbilled
         }
      
-        let tcaHtml = (data) => {
-            return `<a class="btn btn-xs btn-maroon" ui-sref="app.summaryfull({caseId: ${data.id}})">
-                    <i class="fa fa-edit"></i>View Summary</a>`
-        }
-
-        let taskHtml = (data) => {
-            return `<a class="btn btn-xs btn-primary" ui-sref="app.taskadd({companyId: ${data.id}})">
-                    <i class="fa fa-edit"></i>Add Task</a>`
-        }
-        let detailsHtml = (data) => {
-            return `<a class="btn btn-xs btn-success" ui-sref="app.casedetails({companyId: ${data.id}})">
-                    <i class="fa fa-edit">View/Add Details</i></a>`
-        }
         let actionsHtml = (data) => {
             return `
-                <a class="btn btn-xs btn-warning" ui-sref="app.caseedit({companyId: ${data.id}})">
+                <a class="btn btn-xs btn-warning" ui-sref="app.disbedit({caseId: ${data.id}})">
                     <i class="fa fa-edit"></i>
                 </a>
                 &nbsp
@@ -74,6 +53,35 @@ class CaseListController{
                     <i class="fa fa-trash-o"></i>
                 </button>`
         }
+
+
+ let total = this.API.service('totalfull', this.API.all('disbs'))
+ total.getList(qParams)
+            .then((response) => {
+                let dataSet = response.plain()
+
+                this.dtOptions2 = DTOptionsBuilder.newOptions()
+                    .withOption('data', dataSet)
+                    .withOption('paging', false)
+                    .withOption('searching', false)
+                    .withOption('createdRow', createdRow)
+                    .withOption('responsive', true)
+                    .withOption('bInfo', false)
+                    .withBootstrap()
+
+                this.dtColumns2 = [
+                    DTColumnBuilder.newColumn('total').withTitle('').withOption('width', '40%'),
+                    DTColumnBuilder.newColumn('tcost').withTitle('Total Disbursments'),
+                    DTColumnBuilder.newColumn('billed').withTitle('Billed'),
+                    DTColumnBuilder.newColumn('unbilled').withTitle('Un Billed'),
+                    
+                     ]
+
+                this.displayTable2 = true
+            })
+
+
+
     }
 
     delete (roleId) {
@@ -107,12 +115,11 @@ class CaseListController{
     }
 
     $onInit () {}
-
 }
 
-export const CaseListComponent = {
-    templateUrl: './views/app/components/case-list/case-list.component.html',
-    controller: CaseListController,
+export const DisbtotalListComponent = {
+    templateUrl: './views/app/components/disbtotal-list/disbtotal-list.component.html',
+    controller: DisbtotalListController,
     controllerAs: 'vm',
     bindings: {}
 }

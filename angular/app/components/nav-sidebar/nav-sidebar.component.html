@@ -56,6 +56,25 @@
           <i class="fa fa-money"></i> <span>Costs</span> <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
+          <li class="treeview">
+            <a href="javascript:void(0)">
+              <i class="fa fa-money"></i> <span>Time Costs</span> <i class="fa fa-angle-left pull-right"></i>
+            </a>
+          <ul class="treeview-menu">
+            <li class="active"><a ui-sref='app.tclist({type: 1})'><i class="fa fa-circle-o"></i> <span>CVL/MVL/CVA/CWU</span></a></li>
+            <li class="active"><a ui-sref='app.tclist({type: 2})'><i class="fa fa-circle-o"></i> <span>IVA/BKY</span></a></li>
+          </ul>
+          </li>
+          <li class="treeview">
+            <a href="javascript:void(0)">
+              <i class="fa fa-money"></i> <span>Disbursments</span> <i class="fa fa-angle-left pull-right"></i>
+            </a>
+          <ul class="treeview-menu">
+            <li class="active"><a ui-sref='app.disblist({type: 1})'><i class="fa fa-circle-o"></i> <span>CVL/MVL/CVA/CWU</span></a></li>
+            <li class="active"><a ui-sref='app.disblist({type: 2})'><i class="fa fa-circle-o"></i> <span>IVA/BKY</span></a></li>
+          </ul>
+          </li>
+
           <li class="active"><a ui-sref='app.costlist'><i class="fa fa-circle-o"></i> <span>Cost List</span></a></li>
         </ul>
       </li>

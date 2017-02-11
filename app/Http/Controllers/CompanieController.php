@@ -26,6 +26,7 @@ class CompanieController extends Controller
         return response()->success(compact('companies'));
     }
 
+
     public function getCompanyShow($id)
     {
         $clients = Companie::find($id);

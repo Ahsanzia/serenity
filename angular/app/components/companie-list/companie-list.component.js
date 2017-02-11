@@ -27,6 +27,8 @@ class CompanieListController{
                         .renderWith(taskHtml),    
                     DTColumnBuilder.newColumn(null).withTitle('Add Details').notSortable()
                     .renderWith(detailsHtml),
+                    DTColumnBuilder.newColumn(null).withTitle('Add Disbursments').notSortable()
+                    .renderWith(distHtml),
                     DTColumnBuilder.newColumn(null).withTitle('TCA Summary').notSortable()
                     .renderWith(tcaHtml),
                     DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
@@ -41,17 +43,22 @@ class CompanieListController{
         }
 
 
+
+      let distHtml = (data) => {
+            return `<a class="btn btn-xs btn-warning" ui-sref="app.disbadd({caseId: ${data.id}})">
+                    <i class="fa fa-edit"></i>Disbursments</a>`
+        }
         let tcaHtml = (data) => {
-            return `<a class="btn btn-xs btn-warning" ui-sref="app.summaryfull({caseId: ${data.id}})">
+            return `<a class="btn btn-xs btn-success" ui-sref="app.summaryfull({caseId: ${data.id}})">
                     <i class="fa fa-edit"></i>View Summary</a>`
         }
 
         let taskHtml = (data) => {
-            return `<a class="btn btn-xs btn-primary" ui-sref="app.taskadd({companyId: ${data.id}})">
+            return `<a class="btn btn-xs btn-danger" ui-sref="app.taskadd({companyId: ${data.id}})">
                     <i class="fa fa-edit"></i>Add Task</a>`
         }
         let detailsHtml = (data) => {
-            return `<a class="btn btn-xs btn-success" ui-sref="app.companydetails({companyId: ${data.id}})">
+            return `<a class="btn btn-xs btn-primary" ui-sref="app.companydetails({companyId: ${data.id}})">
                     <i class="fa fa-edit">View/Add Details</i></a>`
         }
         let actionsHtml = (data) => {

@@ -77,6 +77,24 @@
                                 <p ng-show="caseForm.j_admin.$error.required && ( vm.formSubmitted || caseForm.j_admin.$touched)" class="help-block">Junior Admin is required</p>
                             </div>
                         </div>
+
+
+                         
+                        <div class="form-group" ng-class="{ 'has-error': caseForm.capproved.$invalid && ( vm.formSubmitted || caseForm.capproved.$touched) }">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Cost Approved</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="vm.task.data.capproved" name="capproved" placeholder="Cost Approved" required>
+                                <p ng-show="caseForm.capproved.$error.required && ( vm.formSubmitted || caseForm.capproved.$touched)" class="help-block">Cost Approved is required</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error': caseForm.cbilled.$invalid && ( vm.formSubmitted || caseForm.cbilled.$touched) }">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Cost Billed</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="vm.task.data.cbilled" name="cbilled" placeholder="Cost Billed" required>
+                                <p ng-show="caseForm.cbilled.$error.required && ( vm.formSubmitted || caseForm.cbilled.$touched)" class="help-block">Cost Billed is required</p>
+                            </div>
+                        </div>
+                        
                         <div class="form-group" ng-class="{ 'has-error': caseForm.explanation.$invalid && ( vm.formSubmitted || caseForm.explanation.$touched) }">
                             <label for="inputEmail3" class="col-sm-2 control-label">Explanation</label>
                             <div class="col-sm-10">
