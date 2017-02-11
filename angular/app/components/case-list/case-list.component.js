@@ -41,32 +41,26 @@ class CaseListController{
                 this.displayTable = true
             })
 
-        let createdRow = (row) => {
-            $compile(angular.element(row).contents())($scope)
-        }
-
-
-        let distHtml = (data) => {
-            return `<a class="btn btn-xs btn-purple" ui-sref="app.disbadd({caseId: ${data.id}})">
+       let distHtml = (data) => {
+            return `<a class="btn btn-xs btn-warning" ui-sref="app.disbadd({caseId: ${data.id}})">
                     <i class="fa fa-edit"></i>Disbursments</a>`
         }
-     
         let tcaHtml = (data) => {
-            return `<a class="btn btn-xs btn-maroon" ui-sref="app.summaryfull({caseId: ${data.id}})">
+            return `<a class="btn btn-xs btn-success" ui-sref="app.summaryfull({caseId: ${data.id}})">
                     <i class="fa fa-edit"></i>View Summary</a>`
         }
 
         let taskHtml = (data) => {
-            return `<a class="btn btn-xs btn-primary" ui-sref="app.taskadd({companyId: ${data.id}})">
+            return `<a class="btn btn-xs btn-danger" ui-sref="app.taskadd({companyId: ${data.id}})">
                     <i class="fa fa-edit"></i>Add Task</a>`
         }
         let detailsHtml = (data) => {
-            return `<a class="btn btn-xs btn-success" ui-sref="app.casedetails({companyId: ${data.id}})">
+            return `<a class="btn btn-xs btn-primary" ui-sref="app.companydetails({companyId: ${data.id}})">
                     <i class="fa fa-edit">View/Add Details</i></a>`
         }
         let actionsHtml = (data) => {
             return `
-                <a class="btn btn-xs btn-warning" ui-sref="app.caseedit({companyId: ${data.id}})">
+                <a class="btn btn-xs btn-warning" ui-sref="app.companyedit({companyId: ${data.id}})">
                     <i class="fa fa-edit"></i>
                 </a>
                 &nbsp
