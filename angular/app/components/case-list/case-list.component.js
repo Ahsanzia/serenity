@@ -40,7 +40,9 @@ class CaseListController{
 
                 this.displayTable = true
             })
-
+  let createdRow = (row) => {
+            $compile(angular.element(row).contents())($scope)
+        }
        let distHtml = (data) => {
             return `<a class="btn btn-xs btn-warning" ui-sref="app.disbadd({caseId: ${data.id}})">
                     <i class="fa fa-edit"></i>Disbursments</a>`
