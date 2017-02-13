@@ -119,7 +119,7 @@ class ActivitylogController extends Controller
     {
         $taskct = activitylog::join('companies', 'companies.id', '=', 'activitylogs.companiesid')->where([
           ['is_done', '=', 1],
-          ['reminder_date', '<=', date('Y-m-d')],
+          ['reminder_date', '=', date('Y-m-d')],
       ])->select('activitylogs.*','companies.name')->get();
         return response()->success(compact('taskct'));
     }
